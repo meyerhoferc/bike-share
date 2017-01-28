@@ -12,7 +12,8 @@ end
 
 describe 'user deletes station' do
   it 'can be deleted from show page' do
-    Station.create(station_params)
+    city1 = City.create!(name: 'Denver')
+    city1.stations.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1), installation_date: '01/01/2017')
 
     visit('/stations/1')
     click_on('Delete')

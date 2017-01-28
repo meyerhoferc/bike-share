@@ -1,4 +1,5 @@
 require './app/models/station.rb'
+require './app/models/city.rb'
 require 'faker'
 require 'csv'
 
@@ -12,17 +13,12 @@ require 'csv'
 stations = CSV.open 'db/csv/station.csv',
 headers: true, header_converters: :symbol
 
-count = 0
-
-stations.each do |row|
-  # require 'pry'; binding.pry
-  count += 1
-  station = Station.new(name: row[:name], dock_count: row[:dock_count].to_i, city: row[:city], installation_date: row[:installation_date])
-  puts row[:installation_date]
-  puts station.installation_date
-  station.save!
-  puts "Station: #{station.name} Count: #{count}"
+def format_date(date)
+  day, month, year = date.split('/')
+  [month, day, year].join('/')
 end
 
-# how to grab database object?
-# database.execute("COPY stations FROM '/csv/station.csv' DELIMITER ',' CSV;")
+stations.each do |row|
+  city = City.find_or_create_by(name: row[:city])
+  city.stations.create!(name: row[:name], dock_count: row[:dock_count].to_i, installation_date: format_date(row[:installation_date]))
+end
