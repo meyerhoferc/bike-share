@@ -21,9 +21,9 @@ describe 'user edits station' do
     fill_in('station[city]', :with => "New City")
     fill_in('station[dock_count]', :with => "38")
     fill_in('station[installation_date]', :with => "07/07/2016")
-    click_on('submit')
+    click_on('Submit')
 
-    expect(page).to have_current_path('/stations/1/edit')
+    expect(page).to have_current_path('/stations/1')
     expect(page).to have_content('New Name')
     expect(page).to have_content('New City')
     expect(page).to have_content('38')
