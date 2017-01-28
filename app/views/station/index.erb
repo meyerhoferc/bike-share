@@ -1,11 +1,16 @@
-<div id="station_greeting">
-  Stations
-</div>
+<h1>All Stations</h1>
 
 <% @stations.each do |station| %>
-  Name:</label><h3><a href="/stations/<%= station.id %>"><%= station.name %></a></h3>
-  Number of Docks: <p><%= station.dock_count %></p>
-  City: <p><%= station.city %></p>
-  Installation Date: <p><%= station.installation_date %></p>
+  <section>
+    <p>Station Name: <%= station.name %></p>
+    <p>City: <%= station.city %></p>
+    <p>Total Number of Docks: <%= station.dock_count %></p>
+    <p>Installation Date: <%= station.installation_date %></p>
+  </section>
 
-  <% end %>
+  <a href="/stations/<%= station.id %>/edit">Edit</a>
+  <form action='/stations/<%= station.id %>' method="POST">
+    <input type="hidden" name="_method" value="DELETE" />
+    <input type="submit" value="Delete" />
+  </form>
+<% end %>
