@@ -9,7 +9,7 @@ describe 'user deletes station' do
     visit('/stations/2')
     click_on('Delete')
 
-    page.has_xpath?('/stations')
+    expect(page).to have_current_path('/stations')
     expect(Station.all.count).to eq(4)
   end
 

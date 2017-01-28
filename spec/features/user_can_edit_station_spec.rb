@@ -9,7 +9,7 @@ describe 'user edits station' do
     visit('/stations/2')
     click_on('Edit')
 
-    page.has_xpath?('/stations/2/edit')
+    expect(page).to have_current_path('/stations/2/edit')
   end
 
   it 'fills in new information in form' do
@@ -21,7 +21,7 @@ describe 'user edits station' do
     fill_in('station[installation_date]', :with => "07/07/2016")
     click_on('submit')
 
-    page.has_xpath?('/stations/2/edit')
+    expect(page).to have_current_path('/stations/2/edit')
     expect(page).to have_content('New Name')
     expect(page).to have_content('New City')
     expect(page).to have_content('38')
