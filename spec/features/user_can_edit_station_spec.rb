@@ -6,7 +6,6 @@ include LoadDatabase
 describe 'user edits station' do
   it 'redirects to /new for a form' do
     LoadDatabase.load
-    station = Station.find(2)
     visit('/stations/2')
     click_on('Edit')
 
@@ -15,7 +14,6 @@ describe 'user edits station' do
 
   it 'fills in new information in form' do
     LoadDatabase.load
-    station = Station.find(2)
     visit('/stations/2/edit')
     fill_in('station[name]', :with => "New Name")
     fill_in('station[city]', :with => "New City")

@@ -6,7 +6,6 @@ include LoadDatabase
 describe 'user deletes station' do
   it 'can be deleted from show page' do
     LoadDatabase.load
-    station = Station.find(2)
     visit('/stations/2')
     click_on('Delete')
 

@@ -13,10 +13,8 @@ describe 'user goes to show page' do
 
   it 'sees station information' do
     LoadDatabase.load
-    stations = Station.all.count
-    (1..stations).to_a.each do |id|
-      station = Station.find(id)
-      visit("/stations/#{id.to_s}")
+    Station.all.each do |station|
+      visit("/stations/#{station.id}")
 
       expect(page).to have_content(station.name)
       expect(page).to have_content(station.dock_count)
