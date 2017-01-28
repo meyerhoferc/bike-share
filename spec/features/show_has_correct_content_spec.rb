@@ -1,6 +1,15 @@
 require_relative '../spec_helper'
 require 'faker'
 
+def station_params
+  {
+    name: Faker::Cat.name,
+    dock_count: Faker::Number.number(1),
+    city: Faker::Space.galaxy,
+    installation_date: '01/02/2017'
+  }
+end
+
 describe 'user goes to show page' do
   it 'sees page title' do
     city1 = City.create!(name: 'Denver')
