@@ -11,4 +11,3 @@ test:
 production:
   adapter: postgresql
   database: bike-share-production
-
