@@ -1,10 +1,18 @@
 require_relative '../spec_helper'
 require 'faker'
 
+def station_params
+  {
+    name: Faker::Cat.name,
+    dock_count: Faker::Number.number(1),
+    city: Faker::Space.galaxy,
+    installation_date: '01/02/2017'
+  }
+end
+
 describe 'user edits station' do
   it 'redirects to /new for a form' do
-    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
-    city: Faker::Space.galaxy, installation_date: '01/01/2017')
+    Station.create(station_params)
 
     visit('/stations/1')
     click_on('Edit')
@@ -13,8 +21,7 @@ describe 'user edits station' do
   end
 
   it 'fills in new information in form' do
-    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
-    city: Faker::Space.galaxy, installation_date: '01/01/2017')
+    Station.create(station_params)
 
     visit('/stations/1/edit')
     fill_in('station[name]', :with => "New Name")

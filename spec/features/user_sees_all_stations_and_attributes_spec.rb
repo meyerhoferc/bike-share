@@ -1,5 +1,5 @@
 require_relative '../spec_helper'
-require 'faker'
+require 'pry'
 
 def station_params
   {
@@ -10,20 +10,12 @@ def station_params
   }
 end
 
-describe 'user goes to show page' do
-  it 'sees page title' do
-    2.times { Station.create(station_params) }
-
-    visit('/stations/1')
-
-    within('h1') {expect(page).to have_content('Station Information')}
-  end
-
-  it 'sees station information' do
-    2.times { Station.create(station_params) }
+describe "When user visits stations/index" do
+  it "they see all stations" do
+    5.times { Station.create(station_params) }
 
     Station.all.each do |station|
-      visit("/stations/#{station.id}")
+      visit('/stations')
 
       expect(page).to have_content(station.name)
       expect(page).to have_content(station.dock_count)
@@ -31,4 +23,13 @@ describe 'user goes to show page' do
       expect(page).to have_content(station.installation_date)
     end
   end
+
+  it 'can redirect to edit from stations/index' do
+    Station.create(station_params)
+    visit('/stations')
+    click_on('Edit')
+
+    expect(page).to have_current_path('/stations/1/edit')
+  end
+
 end
