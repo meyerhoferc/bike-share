@@ -2,6 +2,7 @@ require './app/models/station.rb'
 require 'faker'
 
 module LoadDatabase
+
   def self.load
     dates = ['01/01/2017', '01/02/2017', '01/03/2017', '01/04/2017', '01/05/2017']
 

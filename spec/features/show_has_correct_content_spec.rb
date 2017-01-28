@@ -1,12 +1,18 @@
 require_relative '../spec_helper'
 require 'faker'
 
+def station_params
+  {
+    name: Faker::Cat.name,
+    dock_count: Faker::Number.number(1),
+    city: Faker::Space.galaxy,
+    installation_date: '01/02/2017'
+  }
+end
+
 describe 'user goes to show page' do
   it 'sees page title' do
-    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
-    city: Faker::Space.galaxy, installation_date: '01/01/2017')
-    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
-    city: Faker::Space.galaxy, installation_date: '01/02/2017')
+    2.times { Station.create(station_params) }
 
     visit('/stations/1')
 
@@ -14,10 +20,7 @@ describe 'user goes to show page' do
   end
 
   it 'sees station information' do
-    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
-    city: Faker::Space.galaxy, installation_date: '01/01/2017')
-    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
-    city: Faker::Space.galaxy, installation_date: '01/02/2017')
+    2.times { Station.create(station_params) }
 
     Station.all.each do |station|
       visit("/stations/#{station.id}")
