@@ -1,3 +1,11 @@
 <div id="station_greeting">
   Stations
 </div>
+
+<% @stations.each do |station| %>
+  Name:</label><h3><a href="/stations/<%= station.id %>"><%= station.name %></a></h3>
+  Number of Docks: <p><%= station.dock_count %></p>
+  City: <p><%= station.city %></p>
+  Installation Date: <p><%= station.installation_date %></p>
+
+  <% end %>
