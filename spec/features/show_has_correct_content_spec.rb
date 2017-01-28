@@ -1,18 +1,24 @@
 require_relative '../spec_helper'
-require_relative 'load_database'
-
-include LoadDatabase
+require 'faker'
 
 describe 'user goes to show page' do
   it 'sees page title' do
-    LoadDatabase.load
+    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
+    city: Faker::Space.galaxy, installation_date: '01/01/2017')
+    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
+    city: Faker::Space.galaxy, installation_date: '01/02/2017')
+
     visit('/stations/1')
 
     within('h1') {expect(page).to have_content('Station Information')}
   end
 
   it 'sees station information' do
-    LoadDatabase.load
+    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
+    city: Faker::Space.galaxy, installation_date: '01/01/2017')
+    Station.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1),
+    city: Faker::Space.galaxy, installation_date: '01/02/2017')
+
     Station.all.each do |station|
       visit("/stations/#{station.id}")
 
