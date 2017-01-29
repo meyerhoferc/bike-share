@@ -99,4 +99,36 @@ class BikeShareApp < Sinatra::Base
    erb :"trip/show"
  end
 
+ get '/trips/:id/edit' do
+   @trip = Trip.find(params[:id])
+   erb :"trip/edit"
+ end
+
+ put '/trips/:id' do
+   start_station = params[:trip][:start_station]
+   start_station_id = Station.find_by(name: start_station).id
+   end_station =  params[:trip][:end_station]
+   end_station_id = Station.find_by(name: end_station).id
+   zipcode = params[:trip][:zipcode]
+   zipcode_id = Zipcode.find_by(zip_code: zipcode).id
+   subscription = params[:trip][:subscription]
+   subscription_id = Subscription.find_by(account: subscription).id
+   bike = params[:trip][:bike]
+   bike_id = Bike.find_by(bike_number: bike).id
+
+   input = {
+     start_station_id: start_station_id,
+     end_station_id: end_station_id,
+     zipcode_id: zipcode_id,
+     subscription_id: subscription_id,
+     bike_id: bike_id,
+     duration: params[:trip][:duration],
+     start_date: params[:trip][:start_date],
+     end_date: params[:trip][:end_date]
+   }
+
+   @trip = Trip.update(params[:id], input)
+   redirect "/trips/#{@trip.id}"
+ end
+
 end
