@@ -20,6 +20,10 @@
           <p>Subscription: <%= trip.subscription.account%></p>
         </section>
         <a href="/trips/<%= trip.id %>/edit">Edit</a>
+        <form action='/trips/<%= trip.id %>' method='POST'>
+          <input type='hidden' name='_method' value='DELETE' />
+          <input type='submit' value='Delete' />
+        </form>
       </div>
     </div>
   </div>
