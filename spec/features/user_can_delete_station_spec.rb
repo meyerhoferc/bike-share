@@ -23,8 +23,8 @@ describe 'user deletes station' do
   end
 
   it 'can be deleted from index page' do
-    Station.create(station_params)
-
+    city1 = City.create!(name: 'Denver')
+    city1.stations.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1), installation_date: '01/01/2017')
     visit('/stations')
     click_on('Delete')
 
