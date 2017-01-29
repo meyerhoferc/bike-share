@@ -12,7 +12,8 @@ end
 
 describe 'user edits station' do
   it 'redirects to /new for a form' do
-    Station.create(station_params)
+    city1 = City.create!(name: 'Denver')
+    city1.stations.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1), installation_date: '01/01/2017')
 
     visit('/stations/1')
     click_on('Edit')
@@ -21,18 +22,20 @@ describe 'user edits station' do
   end
 
   it 'fills in new information in form' do
-    Station.create(station_params)
+    city1 = City.create!(name: 'Denver')
+    city2 = City.create!(name: 'Seattle')
+    city1.stations.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1), installation_date: '01/01/2017')
 
     visit('/stations/1/edit')
     fill_in('station[name]', :with => "New Name")
-    fill_in('station[city]', :with => "New City")
+    fill_in('station[city]', :with => "Seattle")
     fill_in('station[dock_count]', :with => "38")
     fill_in('station[installation_date]', :with => "07/07/2016")
     click_on('Submit')
 
     expect(page).to have_current_path('/stations/1')
     expect(page).to have_content('New Name')
-    expect(page).to have_content('New City')
+    expect(page).to have_content('Seattle')
     expect(page).to have_content('38')
     expect(page).to have_content('2016-07-07')
   end
