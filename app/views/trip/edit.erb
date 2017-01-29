@@ -1,0 +1,15 @@
+<h1>Edit Trip</h1>
+<div class='card-content'>
+  <form action="/trips/<%= @trip.id %>" method="post">
+    <input type="hidden" name="_method" value="PUT" />
+    Start Station: <input type="text" name="trip[start_station]" value="<%= @trip.start_station.name %>"/></br>
+    End Station: <input type="text" name="trip[end_station]" value="<%= @trip.end_station.name %>"/></br>
+    Zipcode: <input type="text" name="trip[zipcode]" value="<%= @trip.zipcode.zip_code %>"/></br>
+    Start Date: <input type="text" name="trip[start_date]" value="<%= @trip.start_date %>"/></br>
+    End Date: <input type="text" name="trip[end_date]" value="<%= @trip.end_date %>"/></br>
+    Duration: <input type="text" name="trip[duration]" value="<%= @trip.duration %>"/></br>
+    Bike Number: <input type="text" name="trip[bike]" value="<%= @trip.bike.bike_number %>"/></br>
+    Subscription Type: <input type="text" name="trip[subscription]" value="<%= @trip.subscription.account %>"/></br>
+    <input type="submit" value="Submit" />
+  </form>
+</div>
