@@ -60,4 +60,11 @@ class BikeShareApp < Sinatra::Base
    redirect '/stations'
  end
 
+ # ===================================== BEGIN TRIPS ======================================
+
+ get '/trips' do
+   @trips = Trip.all
+   erb :"trip/index"
+ end
+
 end
