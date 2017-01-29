@@ -76,7 +76,6 @@ class BikeShareApp < Sinatra::Base
    zipcode = Zipcode.create(zip_code: params[:trip][:zipcode])
    start_station = Station.find_by(name: params[:trip][:start_station])
    end_station = Station.find_by(name: params[:trip][:end_station])
-  #  require 'pry'; binding.pry
    start_date = params[:trip][:start_date]
    end_date = params[:trip][:end_date]
    duration = params[:trip][:duration]
