@@ -3,7 +3,8 @@
 <% @stations.each do |station| %>
   <section>
     <p>Station Name: <%= station.name %></p>
-    <p>City: <%= station.city %></p>
+    <% city = City.find(station.city_id)%>
+    <p>City: <%= city.name %></p>
     <p>Total Number of Docks: <%= station.dock_count %></p>
     <p>Installation Date: <%= station.installation_date %></p>
   </section>
