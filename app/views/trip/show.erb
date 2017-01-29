@@ -1,0 +1,19 @@
+<h1>Trip Information</h1>
+
+<div class='card-content'>
+  <section>
+    <p>Start Station: <%= @trip.start_station.name%></p>
+    <p>End Station: <%= @trip.end_station.name%></p>
+    <p>Zipcode: <%= @trip.zipcode.zip_code%></p>
+    <p>Start Date: <%= @trip.start_date%></p>
+    <p>End Date: <%= @trip.end_date%></p>
+    <p>Duration: <%= @trip.duration%></p>
+    <p>Bike: <%= @trip.bike.bike_number%></p>
+    <p>Subscription: <%= @trip.subscription.account%></p>
+  </section>
+  <a href="/trips/<%= @trip.id %>/edit">Edit</a>
+  <form action="/trips/<%= @trip.id %>" method="POST">
+    <input type="hidden" name="_method" value="DELETE" />
+    <input type="submit" value="Delete" />
+  </form>
+</div>
