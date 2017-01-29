@@ -2,6 +2,7 @@ require_relative '../spec_helper'
 
 describe 'user goes to index' do
   it 'they see all trips' do
+    skip
     #needs some data
     visit('/trips')
 

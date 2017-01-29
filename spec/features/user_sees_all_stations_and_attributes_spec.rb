@@ -1,14 +1,4 @@
 require_relative '../spec_helper'
-require 'pry'
-
-def station_params
-  {
-    name: Faker::Cat.name,
-    dock_count: Faker::Number.number(1),
-    city: Faker::Space.galaxy,
-    installation_date: '01/02/2017'
-  }
-end
 
 describe "When user visits stations/index" do
   it "they see all stations" do
