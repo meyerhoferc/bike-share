@@ -1,5 +1,5 @@
 class Subscription < ActiveRecord::Base
-  validates :type, presence: true
+  validates :account, presence: true
   has_many :trips
-  validates_uniqueness_of :type
+  validates_uniqueness_of :account
 end
