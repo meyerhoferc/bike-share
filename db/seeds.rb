@@ -22,3 +22,6 @@ stations.each do |row|
   city = City.find_or_create_by(name: row[:city])
   city.stations.create!(name: row[:name], dock_count: row[:dock_count].to_i, installation_date: format_date(row[:installation_date]))
 end
+#look up all entities, store, and then set in Trip
+#we can use station_name from csv to look up the station
+#Trip.create(start_station: station, end_station: station, bike: bike, subcription: subscription, zipcode: zipcode)
