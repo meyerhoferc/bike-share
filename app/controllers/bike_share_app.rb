@@ -15,7 +15,6 @@ class BikeShareApp < Sinatra::Base
 
  get '/stations/:id' do
    @station = Station.find(params[:id])
-   @city = City.find(@station.city_id)
    erb :'station/show'
  end
 
@@ -55,9 +54,90 @@ class BikeShareApp < Sinatra::Base
  end
 
  delete '/stations/:id' do
-   @station = Station.destroy(params[:id])
+   Station.destroy(params[:id])
 
    redirect '/stations'
  end
+
+ # ===================================== BEGIN TRIPS ======================================
+
+ get '/trips' do
+   @trips = Trip.all
+   erb :"trip/index"
+ end
+
+ get '/trips/new' do
+   erb :"trip/new"
+ end
+
+ post '/trips' do
+   bike = Bike.create(bike_number: params[:trip][:bike])
+   subscription = Subscription.create(account: params[:trip][:subscription])
+   zipcode = Zipcode.create(zip_code: params[:trip][:zipcode])
+   start_station = Station.find_by(name: params[:trip][:start_station])
+   end_station = Station.find_by(name: params[:trip][:end_station])
+   start_date = params[:trip][:start_date]
+   end_date = params[:trip][:end_date]
+   duration = params[:trip][:duration]
+   input = {
+     bike_id: bike.id,
+     subscription_id: subscription.id,
+     zipcode_id: zipcode.id,
+     start_station_id: start_station.id,
+     end_station_id: end_station.id,
+     start_date: start_date,
+     end_date: end_date,
+     duration: duration
+   }
+   trip = Trip.create(input)
+
+   redirect "/trips/#{trip.id}"
+ end
+
+ get '/trips/:id' do
+   @trip = Trip.find(params[:id])
+   erb :"trip/show"
+ end
+
+
+
+
+ get '/trips/:id/edit' do
+   @trip = Trip.find(params[:id])
+   erb :"trip/edit"
+ end
+
+ put '/trips/:id' do
+   start_station = params[:trip][:start_station]
+   start_station_id = Station.find_by(name: start_station).id
+   end_station =  params[:trip][:end_station]
+   end_station_id = Station.find_by(name: end_station).id
+   zipcode = params[:trip][:zipcode]
+   zipcode_id = Zipcode.find_by(zip_code: zipcode).id
+   subscription = params[:trip][:subscription]
+   subscription_id = Subscription.find_by(account: subscription).id
+   bike = params[:trip][:bike]
+   bike_id = Bike.find_by(bike_number: bike).id
+
+   input = {
+     start_station_id: start_station_id,
+     end_station_id: end_station_id,
+     zipcode_id: zipcode_id,
+     subscription_id: subscription_id,
+     bike_id: bike_id,
+     duration: params[:trip][:duration],
+     start_date: params[:trip][:start_date],
+     end_date: params[:trip][:end_date]
+   }
+
+   @trip = Trip.update(params[:id], input)
+   redirect "/trips/#{@trip.id}"
+ end
+  
+  delete '/trips/:id' do
+   Trip.destroy(params[:id])
+
+   redirect '/trips'
+  end 
 
 end
