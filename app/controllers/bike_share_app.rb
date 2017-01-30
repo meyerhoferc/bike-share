@@ -20,14 +20,14 @@ class BikeShareApp < Sinatra::Base
 
  post '/stations' do
    city_name = params[:station][:city]
-   @city = City.create(name: city_name)
+   city = City.find_or_create_by(name: city_name)
    input = {
      name: params[:station][:name],
      dock_count: params[:station][:dock_count],
-     city_id: @city_id,
+     city: city,
      installation_date: params[:station][:installation_date]
    }
-   @station = @city.stations.create(input)
+   @station = city.stations.create(input)
 
    redirect "/stations/#{@station.id}"
  end
@@ -63,7 +63,7 @@ class BikeShareApp < Sinatra::Base
 
  get '/trips' do
    @trips = Trip.all
-   
+
    erb :"trip/index"
  end
 
