@@ -21,8 +21,8 @@ stations_cache = {}
 
 stations.each do |row|
   city = City.find_or_create_by(name: row[:city])
-  station = city.stations.create!(name: row[:name], dock_count: row[:dock_count].to_i, installation_date: format_date(row[:installation_date]))
-  stations_cache[station.name] = station
+  station = city.stations.create!(id: row[:id], name: row[:name], dock_count: row[:dock_count].to_i, installation_date: format_date(row[:installation_date]))
+  stations_cache[station.id] = station
 end
 
 zipcode_cache = {}
@@ -30,24 +30,24 @@ bike_cache = {}
 subscription_cache = {}
 
 trips.each do |row|
-  #begin
-    start_station_name = row[:start_station_name]
-    end_station_name = row[:end_station_name]
+  begin
+    start_station = row[:start_station_id].to_i
+    end_station = row[:end_station_id].to_i
 
-    start_station_name = "Stanford in Redwood City" if start_station_name == "Broadway at Main"
-    end_station_name = "Stanford in Redwood City" if end_station_name == "Broadway at Main"
-    start_station_name = "Santa Clara County Civic Center" if start_station_name == "San Jose Government Center"
-    end_station_name = "Santa Clara County Civic Center" if end_station_name == "San Jose Government Center"
-    start_station_name = "Post at Kearney" if start_station_name == "Post at Kearny"
-    end_station_name = "Post at Kearney" if end_station_name == "Post at Kearny"
-    start_station_name = "Washington at Kearney" if start_station_name == "Washington at Kearny"
-    end_station_name = "Washington at Kearney" if end_station_name == "Washington at Kearny"
+    # start_station_name = "Stanford in Redwood City" if start_station_name == "Broadway at Main"
+    # end_station_name = "Stanford in Redwood City" if end_station_name == "Broadway at Main"
+    # start_station_name = "Santa Clara County Civic Center" if start_station_name == "San Jose Government Center"
+    # end_station_name = "Santa Clara County Civic Center" if end_station_name == "San Jose Government Center"
+    # start_station_name = "Post at Kearney" if start_station_name == "Post at Kearny"
+    # end_station_name = "Post at Kearney" if end_station_name == "Post at Kearny"
+    # start_station_name = "Washington at Kearney" if start_station_name == "Washington at Kearny"
+    # end_station_name = "Washington at Kearney" if end_station_name == "Washington at Kearny"
 
-    if zipcode_cache[(row[:zip_code] || "")[0..4]]
-      zipcode = zipcode_cache[(row[:zip_code] || "")[0..4]]
+    if zipcode_cache[(row[:zip_code])]
+      zipcode = zipcode_cache[(row[:zip_code])]
     else
-      zipcode = Zipcode.create(zip_code: (row[:zip_code] || "")[0..4])
-      zipcode_cache[(row[:zip_code] || "")[0..4]] = zipcode
+      zipcode = Zipcode.create(zip_code: (row[:zip_code]))
+      zipcode_cache[(row[:zip_code])] = zipcode
     end
 
     if bike_cache[(row[:bike_id])]
@@ -64,8 +64,8 @@ trips.each do |row|
       subscription_cache[row[:subscription_type]] = subscription
     end
 
-    start_station = stations_cache[start_station_name]
-    end_station = stations_cache[end_station_name]
+    start_station = stations_cache[start_station]
+    end_station = stations_cache[end_station]
     duration = row[:duration]
     start_date = format_date(row[:start_date])
     end_date = format_date(row[:end_date])
@@ -79,8 +79,8 @@ trips.each do |row|
     subscription: subscription,
     zipcode: zipcode)
 
-  #rescue => e
-  #  puts e
-  #  puts row
-  #end
+  rescue => e
+    puts e
+    puts row
+  end
 end
