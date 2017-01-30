@@ -17,48 +17,70 @@ def format_date(date)
   [month, day, year].join('/')
 end
 
+stations_cache = {}
+
 stations.each do |row|
   city = City.find_or_create_by(name: row[:city])
-  city.stations.create!(name: row[:name], dock_count: row[:dock_count].to_i, installation_date: format_date(row[:installation_date]))
+  station = city.stations.create!(name: row[:name], dock_count: row[:dock_count].to_i, installation_date: format_date(row[:installation_date]))
+  stations_cache[station.name] = station
 end
 
-count = 0
+zipcode_cache = {}
+bike_cache = {}
+subscription_cache = {}
+
 trips.each do |row|
-  start_station = row[:start_station_name]
-  end_station = row[:end_station_name]
+  #begin
+    start_station_name = row[:start_station_name]
+    end_station_name = row[:end_station_name]
 
-  start_station = "Stanford in Redwood City" if start_station == "Broadway at Main"
-  end_station = "Stanford in Redwood City" if end_station == "Broadway at Main"
-  start_station = "Santa Clara County Civic Center" if start_station == "San Jose Government Center"
-  end_station = "Santa Clara County Civic Center" if end_station == "San Jose Government Center"
+    start_station_name = "Stanford in Redwood City" if start_station_name == "Broadway at Main"
+    end_station_name = "Stanford in Redwood City" if end_station_name == "Broadway at Main"
+    start_station_name = "Santa Clara County Civic Center" if start_station_name == "San Jose Government Center"
+    end_station_name = "Santa Clara County Civic Center" if end_station_name == "San Jose Government Center"
+    start_station_name = "Post at Kearney" if start_station_name == "Post at Kearny"
+    end_station_name = "Post at Kearney" if end_station_name == "Post at Kearny"
+    start_station_name = "Washington at Kearney" if start_station_name == "Washington at Kearny"
+    end_station_name = "Washington at Kearney" if end_station_name == "Washington at Kearny"
 
-  zipcode = Zipcode.find_or_create_by(zip_code: row[:zip_code]).id
-  bike = Bike.find_or_create_by!(bike_number: row[:bike_id]).id
-  subscription = Subscription.find_or_create_by!(account: row[:subscription_type]).id
-  
-  require 'pry'; binding.pry if Station.find_by(name: start_station).id.nil?
-  require 'pry'; binding.pry if Station.find_by(name: end_station).id.nil?
+    if zipcode_cache[(row[:zip_code] || "")[0..4]]
+      zipcode = zipcode_cache[(row[:zip_code] || "")[0..4]]
+    else
+      zipcode = Zipcode.create(zip_code: (row[:zip_code] || "")[0..4])
+      zipcode_cache[(row[:zip_code] || "")[0..4]] = zipcode
+    end
 
-  start_station = Station.find_by(name: start_station).id
-  end_station = Station.find_by(name: end_station).id
-  duration = row[:duration]
-  start_date = format_date(row[:start_date])
-  end_date = format_date(row[:end_date])
+    if bike_cache[(row[:bike_id])]
+      bike = bike_cache[(row[:bike_id])]
+    else
+      bike = Bike.create(bike_number: row[:bike_id])
+      bike_cache[(row[:bike_id])] = bike
+    end
 
-  Trip.create!(duration: duration,
-              start_date: start_date,
-              start_station_id: start_station,
-              end_date: end_date,
-              end_station_id: end_station,
-              bike_id: bike,
-              subscription_id: subscription,
-              zipcode_id: zipcode)
-  count += 1
-  if count > 670000
-    exit
-  end
-  # puts count/
+    if subscription_cache[row[:subscription_type]]
+      subscription = subscription_cache[row[:subscription_type]]
+    else
+      subscription = Subscription.create(account: row[:subscription_type])
+      subscription_cache[row[:subscription_type]] = subscription
+    end
+
+    start_station = stations_cache[start_station_name]
+    end_station = stations_cache[end_station_name]
+    duration = row[:duration]
+    start_date = format_date(row[:start_date])
+    end_date = format_date(row[:end_date])
+
+    Trip.create!(duration: duration,
+    start_date: start_date,
+    start_station: start_station,
+    end_date: end_date,
+    end_station: end_station,
+    bike: bike,
+    subscription: subscription,
+    zipcode: zipcode)
+
+  #rescue => e
+  #  puts e
+  #  puts row
+  #end
 end
-
-# replace "Broadway at Main" with "Stanford in Redwood City" (station 25)
-# replace "San Jose Government Center" with "Santa Clara County Civic Center" (station 80)
