@@ -5,13 +5,18 @@
  *
  * Made By MaterializeCSS.com
  */
+
+ html {
+     font-family: 'Droid Serif', serif;
+   }
+
  .slider .indicators .indicator-item.active {
    background-color: #4CAF50;
  }
 
 nav ul a,
 nav .brand-logo {
-  color: #444;
+  color: #ffffff;
 }
 
 p {
