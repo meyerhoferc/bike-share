@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/application.css">
+    <!-- <link rel="stylesheet" href="/application.css"> -->
     <link rel="stylesheet" href="/css/materialize.css">
+    <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
 
     <nav>
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo center">Bike Share</a>
+        <a href="/" class="brand-logo center">Bike Share</a>
         <ul class="left hide-on-med-and-down">
-          <li><a href="/stations">All Stations</a></li>
-          <li><a href="stations/new">Create Station</a></li>
+          <li><a href="/stations" class="waves-effect indigo btn">All Stations</a></li>
+          <li><a href="stations/new" class="waves-effect indigo btn">Create Station</a></li>
+          <li><a class="waves-effect waves-light btn">Button</a></li>
         </ul>
         <ul class="right hide-on-med-and-down">
           <li><a href="#">Contact Us</a></li>
         </ul>
       </div>
-
     </nav>
 
-    <div id="index-banner" class="parallax-container">
-      <div class="section no-pad-bot">
-        <div class="container">
-        </div>
-      </div>
-      <div class="parallax"><img src="background01.jpg" alt="Unsplashed background img 1"></div>
-    </div>
+    <div class="slider">
+       <ul class="slides">
+         <li>
+           <img src="bikeshare_520.jpg"> <!-- random image -->
+         </li>
+         <li>
+           <img src="bike_1.jpg"> <!-- random image -->
+         </li>
+         <li>
+           <img src="bike_2.jpg"> <!-- random image -->
+         </li>
+         <li>
+           <img src="bike_3.jpg"> <!-- random image -->
+         </li>
+       </ul>
+     </div>
 
     <div class="container">
     <%= yield %>
@@ -50,7 +60,6 @@
           <h5 class="white-text">Stars Wars Drill Team</h5>
           <p class="grey-text text-lighten-4">We are a team of Turing students working on this project like it's our full time job.</p>
 
-
         </div>
         <div class="col l3 s12">
           <h5 class="white-text">Site Map</h5>
@@ -73,6 +82,12 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+  <script type='text/javascript'>
+    $(document).ready(function(){
+       $('.slider').slider();
+     });
+   </script>
+
 
 </body>
 </html>

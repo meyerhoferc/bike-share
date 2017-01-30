@@ -2,26 +2,29 @@
 
 <% @stations.each do |station| %>
 <div class="row">
-      <div class="col s12 m7">
+      <div class="grid-example col s6 m6">
         <div class="card">
+        <div class="card-panel hoverable">
+
           <div class="card-image">
-            <img src="station_card.jpg">
-            <span class="card-title">Card Title</span>
+            <img src="background01.jpg">
+            <span class="card-title"><strong><%= station.name %></strong></span>
           </div>
           <div class="card-content">
             <section>
-              <p>Station Name: <%= station.name %></p>
+              <h5><%= station.name %></h5>
               <% city = City.find(station.city_id)%>
-              <p>City: <%= city.name %></p>
+              <p><strong>City: <%= city.name %></strong></p>
               <p>Total Number of Docks: <%= station.dock_count %></p>
               <p>Installation Date: <%= station.installation_date %></p>
             </section>
-            <!-- <a href="/stations/<%= station.id %>/edit" id="download-button" class="btn waves-effect waves-light indigo lighten-1">Edit</a> -->
           </div>
 
           <div class="card-action">
-            <a href="/stations/<%= station.id %>">View Station</a>
-            <a href="/stations/<%= station.id %>/edit">Edit</a>
+            <a href="/stations/<%= station.id %>" id="download-button" class="btn waves-effect waves-light indigo lighten-1">View Station</a>
+            <a href="/stations/<%= station.id %>/edit" id="download-button" class="btn waves-effect waves-light orange lighten-1">Edit</a>
+            <!-- <a href="/stations/<%= station.id %>">View Station</a>
+            <a href="/stations/<%= station.id %>/edit">Edit</a> -->
             <!-- <a href="/stations/<%= station.id %>">Delete</a> -->
           </div>
 
@@ -31,7 +34,7 @@
               <input type="submit" value="Delete" />
             </form>
           </div>
-
+        </div>
         </div>
       </div>
     </div>
