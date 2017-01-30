@@ -21,7 +21,7 @@ describe 'user edits station' do
     expect(page).to have_current_path('/stations/1/edit')
   end
 
-  it 'fills in new information in form' do
+  it 'updates an existing record' do
     city1 = City.create!(name: 'Denver')
     city2 = City.create!(name: 'Seattle')
     city1.stations.create(name: Faker::Cat.name, dock_count: Faker::Number.number(1), installation_date: '01/01/2017')
