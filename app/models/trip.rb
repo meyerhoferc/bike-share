@@ -26,9 +26,24 @@ class Trip < ActiveRecord::Base
   end
 
   def self.busiest_day
-    find_by_sql("SELECT COUNT(start_date) FROM trips AS date_occurrence
-    GROUP BY date_occurrence
-    ORDER BY date_occurrence DESC
-    LIMIT 1;")
+    date_time = group('start_date').order('count(*)').pluck(:start_date).last
+    count = Trip.where(start_date: date_time).count
+    result = "#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides"
+    return result.gsub("rides", "ride") if count == 1
+    result
+  end
+
+  def self.slowest_day
+    date_time = group('start_date').order('count(*)').pluck(:start_date).first
+    count = Trip.where(start_date: date_time).count
+    result = "#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides"
+    return result.gsub("rides", "ride") if count == 1
+    result
+  end
+
+  def self.most_ridden
+    bike_id = group('bike_id').order('count(*)').pluck(:bike_id).last
+    count = Trip.where(bike_id: bike_id).count
+    "Bike #{Bike.find(bike_id).bike_number} had #{count} rides"
   end
 end
