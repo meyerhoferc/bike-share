@@ -2,7 +2,7 @@
 <div class='card-content' id="weather">
   <form action="/conditions/<%= @condition.id %>" method="post">
     <input type="hidden" name="_method" value="PUT" />
-    Date: <input type='text' name='condition[date]' value="<%= @condition.date %>"/><br />
+    Date: <input type='text' name='condition[date]' value="<%= @condition.date.day %>/<%= @condition.date.month %>/<%= @condition.date.year %>"/><br />
     Maximum Temperature (F): <input type='text' name='condition[max_temperature_f]' value="<%= @condition.max_temperature_f %>" /><br />
     Minimum Temperature (F): <input type='text' name='condition[min_temperature_f]' value="<%= @condition.min_temperature_f %>"/><br />
     Mean Temperature (F): <input type='text' name='condition[mean_temperature_f]' value="<%= @condition.mean_temperature_f %>"/><br />
