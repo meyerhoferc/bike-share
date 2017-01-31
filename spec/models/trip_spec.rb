@@ -45,7 +45,7 @@ describe Trip do
     it 'is invalid without a start station id' do
       subscription = Subscription.create(account: "subscriber")
       city = City.create(name: "San Jose")
-      station_1 = city.stations.create(name: "Golden Gate", dock_count: 22,
+      city.stations.create(name: "Golden Gate", dock_count: 22,
         installation_date: '01/01/2017')
       station_2 = city.stations.create(name: "Aquarium", dock_count: 28,
         installation_date: '01/03/2017')
@@ -87,7 +87,7 @@ describe Trip do
       city = City.create(name: "San Jose")
       station_1 = city.stations.create(name: "Golden Gate", dock_count: 22,
         installation_date: '01/01/2017')
-      station_2 = city.stations.create(name: "Aquarium", dock_count: 28,
+      city.stations.create(name: "Aquarium", dock_count: 28,
         installation_date: '01/03/2017')
       bike = Bike.create(bike_number: 28)
       zipcode = Zipcode.create(zip_code: 85701)
@@ -109,7 +109,7 @@ describe Trip do
         installation_date: '01/01/2017')
       station_2 = city.stations.create(name: "Aquarium", dock_count: 28,
         installation_date: '01/03/2017')
-      bike = Bike.create(bike_number: 28)
+      Bike.create(bike_number: 28)
       zipcode = Zipcode.create(zip_code: 85701)
       trip = Trip.create(duration: 88,
                          start_station_id: station_1.id,
@@ -123,7 +123,7 @@ describe Trip do
     end
 
     it 'is invalid without a subscription id' do
-      subscription = Subscription.create(account: "subscriber")
+      Subscription.create(account: "subscriber")
       city = City.create(name: "San Jose")
       station_1 = city.stations.create(name: "Golden Gate", dock_count: 22,
         installation_date: '01/01/2017')
