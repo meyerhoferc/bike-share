@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131201305) do
+ActiveRecord::Schema.define(version: 20170131223453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,15 +29,15 @@ ActiveRecord::Schema.define(version: 20170131201305) do
 
   create_table "conditions", force: :cascade do |t|
     t.datetime "date"
-    t.decimal  "max_temperature_f"
-    t.decimal  "mean_temperature_f"
-    t.decimal  "min_temperature_f"
-    t.decimal  "mean_humidity"
-    t.decimal  "mean_visibility"
-    t.decimal  "mean_wind_speed"
-    t.decimal  "precipitation_inches"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.float    "max_temperature_f"
+    t.float    "mean_temperature_f"
+    t.float    "min_temperature_f"
+    t.float    "mean_humidity"
+    t.float    "mean_visibility"
+    t.float    "mean_wind_speed"
+    t.float    "precipitation_inches"
   end
 
   create_table "stations", force: :cascade do |t|

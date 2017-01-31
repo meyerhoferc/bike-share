@@ -27,16 +27,16 @@
     <div class="slider">
        <ul class="slides">
          <li>
-           <img src="bikeshare_520.jpg"> <!-- random image -->
+           <img src="/bikeshare_520.jpg"> <!-- random image -->
          </li>
          <li>
-           <img src="bike_1.jpg"> <!-- random image -->
+           <img src="/bike_1.jpg"> <!-- random image -->
          </li>
          <li>
-           <img src="bike_2.jpg"> <!-- random image -->
+           <img src="/bike_2.jpg"> <!-- random image -->
          </li>
          <li>
-           <img src="bike_3.jpg"> <!-- random image -->
+           <img src="/bike_3.jpg"> <!-- random image -->
          </li>
        </ul>
      </div>
@@ -50,7 +50,7 @@
       <div class="container">
       </div>
     </div>
-    <div class="parallax"><img src="background02.jpg" alt="Unsplashed background img 2"></div>
+    <div class="parallax"><img src="bike_3.jpg" alt="Unsplashed background img 2"></div>
   </div>
 
   <br/>
@@ -83,18 +83,13 @@
   </footer>
 
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
+  <script src="/js/materialize.js"></script>
+  <script src="/js/init.js"></script>
   <script type='text/javascript'>
     $(document).ready(function(){
        $('.slider').slider();
+       $('select').material_select();
      });
   </script>
-
-  <script>$(document).ready(function() {
-    $('select').material_select();
-     });
-  </script>
-
 </body>
 </html>
