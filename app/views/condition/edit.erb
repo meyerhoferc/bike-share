@@ -1,0 +1,15 @@
+<h1>Edit Weather</h1>
+<div class='card-content' id="weather">
+  <form action="/conditions/<%= @condition.id %>" method="post">
+    <input type="hidden" name="_method" value="PUT" />
+    Date: <input type='text' name='condition[date]' value="<%= @condition.date %>"/><br />
+    Maximum Temperature (F): <input type='text' name='condition[max_temperature_f]' value="<%= @condition.max_temperature_f %>" /><br />
+    Minimum Temperature (F): <input type='text' name='condition[min_temperature_f]' value="<%= @condition.min_temperature_f %>"/><br />
+    Mean Temperature (F): <input type='text' name='condition[mean_temperature_f]' value="<%= @condition.mean_temperature_f %>"/><br />
+    Mean Humidity: <input type='text' name='condition[mean_humidity]' value="<%= @condition.mean_humidity %>"/><br />
+    Mean Visibility: <input type='text' name='condition[mean_visibility]' value="<%= @condition.mean_visibility %>"/><br />
+    Mean Wind Speed: <input type='text' name='condition[mean_wind_speed]' value="<%= @condition.mean_wind_speed %>"/><br />
+    Precipitation: <input type='text' name='condition[precipitation_inches]' value="<%= @condition.precipitation_inches %>"/><br />
+    <input type='submit' value='Submit'/>
+  </form>
+</div>
