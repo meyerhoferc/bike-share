@@ -16,4 +16,19 @@ class Trip < ActiveRecord::Base
   def self.shortest_ride
     minimum(:duration)
   end
+
+  def self.longest_ride
+    maximum(:duration)
+  end
+
+  def self.average_duration
+    average(:duration)
+  end
+
+  def self.busiest_day
+    find_by_sql("SELECT COUNT(start_date) FROM trips AS date_occurrence
+    GROUP BY date_occurrence
+    ORDER BY date_occurrence DESC
+    LIMIT 1;")
+  end
 end
