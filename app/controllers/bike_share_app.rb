@@ -1,15 +1,20 @@
+require 'will_paginate'
+require 'will_paginate/active_record'
 class BikeShareApp < Sinatra::Base
+  include WillPaginate::Sinatra::Helpers
  get '/' do
    "Hello"
  end
 
  get '/stations' do
-   @stations = Station.all
+   @stations = Station.all.paginate(page: params[:page], per_page: 5)
 
    erb :"station/index"
  end
 
  get '/stations/new' do
+    @stations = Station.all
+    @cities = City.all
    erb :'station/new'
  end
 
@@ -66,7 +71,7 @@ class BikeShareApp < Sinatra::Base
  # ===================================== BEGIN TRIPS ======================================
 
  get '/trips' do
-   @trips = Trip.all
+   @trips = Trip.all.paginate(page: params[:page], per_page: 5)
 
    erb :"trip/index"
  end
