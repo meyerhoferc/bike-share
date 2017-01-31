@@ -1,0 +1,27 @@
+<h1>All Conditions</h1>
+
+<% @conditions.each do |condition| %>
+<div class='row'>
+  <div class='col s12 m7'>
+    <div class='card'>
+      <div class='card-image'>
+        <!-- <img src='trip_card.jpg' /> -->
+        <span class='card-title'>Card Title</span>
+      </div>
+      <div class='card-content'>
+        <section>
+          <p>Date: <%= condition.date %></p>
+          <p>Maximum Temperature (F): <%= condition.max_temperature_f %></p>
+          <p>Minimum Temperature (F): <%= condition.min_temperature_f %></p>
+          <p>Mean Temperature (F): <%= condition.mean_temperature_f %></p>
+          <p>Mean Humidity: <%= condition.mean_humidity %></p>
+          <p>Mean Visibility: <%= condition.mean_visibility %> miles</p>
+          <p>Mean Wind Speed: <%= condition.mean_wind_speed %></p>
+          <p>Precipitation: <%= condition.precipitation_inches %> inches</p>
+        </section>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<% end%>
