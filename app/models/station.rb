@@ -40,4 +40,8 @@ class Station < ActiveRecord::Base
     station_name = self.find_by(installation_date: minimum(:installation_date)).name
     "#{station_name}: #{min_date.month}/#{min_date.day}/#{min_date.year}"
   end
+
+  def self.day_with_most_starts
+
+  end
 end
