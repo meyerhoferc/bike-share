@@ -29,12 +29,27 @@ stations.each do |row|
   stations_cache[station.id] = station
 end
 
+conditions.each do |row|
+
+next if row[:zip_code] != "94107"
+Condition.create(
+                  date: format_date(row[:date]),
+                  max_temperature_f: row[:max_temperature_f],
+                  mean_temperature_f: row[:mean_temperature_f],
+                  min_temperature_f: row[:min_temperature_f],
+                  mean_humidity: row[:mean_humidity],
+                  mean_visibility: row[:mean_visibility_miles],
+                  mean_wind_speed: row[:mean_wind_speed_mph],
+                  precipitation_inches: row[:precipitation_inches],
+                  zipcode: row[:zip_code]
+                 )
+ end
+
 zipcode_cache = {}
 bike_cache = {}
 subscription_cache = {}
 
 trips.each do |row|
-  begin
     start_station = row[:start_station_id].to_i
     end_station = row[:end_station_id].to_i
 
@@ -65,6 +80,13 @@ trips.each do |row|
     start_date = format_date(row[:start_date])
     end_date = format_date(row[:end_date])
 
+    date_time = start_date.split(" ")
+    weather_time = format_date(date_time[0])
+
+    if Condition.find_by(date: weather_time)
+      weather = Condition.find_by(date: weather_time)
+    end
+
     Trip.create!(duration: duration,
     start_date: start_date,
     start_station: start_station,
@@ -72,28 +94,6 @@ trips.each do |row|
     end_station: end_station,
     bike: bike,
     subscription: subscription,
-    zipcode: zipcode)
-
-  rescue => e
-    puts e
-    puts row
-  end
-
-  conditions.each do |row|
-    begin
-
-  Condition.create!(
-                    date: format_date(row[:date]),
-                    max_temperature_f: row[:max_temperature_f],
-                    mean_temperature_f: row[:mean_temperature_f],
-                    min_temperature_f: row[:min_temperature_f],
-                    mean_humidity: row[:mean_humidity],
-                    mean_visibility: row[:mean_visibility_miles],
-                    mean_wind_speed: row[:mean_wind_speed_mph],
-                    precipitation_inches: row[:precipitation_inches]
-                   )
-   rescue => e
-     puts e
-     puts row
-   end
-  end
+    zipcode: zipcode,
+    condition: weather)
+end
