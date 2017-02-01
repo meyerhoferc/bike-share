@@ -60,4 +60,8 @@ class Station < ActiveRecord::Base
   def rides_ended
     ending_trips.count
   end
+
+  def rides_started
+    beginning_trips.count
+  end
 end

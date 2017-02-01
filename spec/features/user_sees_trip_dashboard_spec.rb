@@ -389,7 +389,7 @@ describe "user goes to trip dashboard" do
     "2/2013 had 1 rides, total: 2",
     "3/2013 had 2 rides, total: 4"]
     visit '/trips-dashboard'
-    save_and_open_page
+    
     result.each { |phrase| expect(page).to have_content(phrase) }
   end
 end

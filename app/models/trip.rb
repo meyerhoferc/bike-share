@@ -94,5 +94,4 @@ class Trip < ActiveRecord::Base
     end
     format_monthly_trip_count(count_by_months)
   end
-
 end
