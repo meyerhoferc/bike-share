@@ -97,3 +97,4 @@ trips.each do |row|
      puts row
    end
   end
+end
