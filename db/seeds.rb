@@ -38,15 +38,6 @@ trips.each do |row|
     start_station = row[:start_station_id].to_i
     end_station = row[:end_station_id].to_i
 
-    # start_station_name = "Stanford in Redwood City" if start_station_name == "Broadway at Main"
-    # end_station_name = "Stanford in Redwood City" if end_station_name == "Broadway at Main"
-    # start_station_name = "Santa Clara County Civic Center" if start_station_name == "San Jose Government Center"
-    # end_station_name = "Santa Clara County Civic Center" if end_station_name == "San Jose Government Center"
-    # start_station_name = "Post at Kearney" if start_station_name == "Post at Kearny"
-    # end_station_name = "Post at Kearney" if end_station_name == "Post at Kearny"
-    # start_station_name = "Washington at Kearney" if start_station_name == "Washington at Kearny"
-    # end_station_name = "Washington at Kearney" if end_station_name == "Washington at Kearny"
-
     if zipcode_cache[(row[:zip_code])]
       zipcode = zipcode_cache[(row[:zip_code])]
     else
