@@ -10,7 +10,7 @@ describe "user goes to trip dashboard" do
       installation_date: '01/03/2017')
     bike = Bike.create(bike_number: 28)
     zipcode = Zipcode.create(zip_code: 85701)
-    trip = Trip.create!(duration: 88,
+    Trip.create!(duration: 88,
                        start_station_id: station_1.id,
                        start_date: '01/01/2017 14:14',
                        end_date: '01/01/2017 15:30',
@@ -18,7 +18,7 @@ describe "user goes to trip dashboard" do
                        subscription_id: subscription.id,
                        bike_id: bike.id,
                        zipcode_id: zipcode.id)
-   trip1 = Trip.create!(duration: 77,
+   Trip.create!(duration: 77,
                       start_station_id: station_1.id,
                       start_date: '01/01/2017 14:14',
                       end_date: '01/03/2017 15:30',
@@ -47,7 +47,7 @@ describe "user goes to trip dashboard" do
       installation_date: '01/03/2017')
     bike = Bike.create(bike_number: 28)
     zipcode = Zipcode.create(zip_code: 85701)
-    trip = Trip.create!(duration: 88,
+    Trip.create!(duration: 88,
                        start_station_id: station_1.id,
                        start_date: '01/01/2017 14:14',
                        end_date: '01/01/2017 15:30',
@@ -55,7 +55,7 @@ describe "user goes to trip dashboard" do
                        subscription_id: subscription.id,
                        bike_id: bike.id,
                        zipcode_id: zipcode.id)
-   trip1 = Trip.create!(duration: 77,
+    Trip.create!(duration: 77,
                       start_station_id: station_1.id,
                       start_date: '01/01/2017 14:14',
                       end_date: '01/03/2017 15:30',
@@ -80,7 +80,7 @@ describe "user goes to trip dashboard" do
       installation_date: '01/03/2017')
     bike = Bike.create(bike_number: 28)
     zipcode = Zipcode.create(zip_code: 85701)
-    trip = Trip.create!(duration: 88,
+    Trip.create!(duration: 88,
                        start_station_id: station_1.id,
                        start_date: '01/01/2017 14:14',
                        end_date: '01/01/2017 15:30',
@@ -88,7 +88,7 @@ describe "user goes to trip dashboard" do
                        subscription_id: subscription.id,
                        bike_id: bike.id,
                        zipcode_id: zipcode.id)
-   trip1 = Trip.create!(duration: 77,
+    Trip.create!(duration: 77,
                       start_station_id: station_1.id,
                       start_date: '01/01/2017 14:14',
                       end_date: '01/03/2017 15:30',
@@ -113,7 +113,7 @@ describe "user goes to trip dashboard" do
       installation_date: '01/03/2017')
     bike = Bike.create(bike_number: 28)
     zipcode = Zipcode.create(zip_code: 85701)
-    trip = Trip.create!(duration: 88,
+    Trip.create!(duration: 88,
                        start_station_id: station_1.id,
                        start_date: '01/01/2017 14:14',
                        end_date: '01/01/2017 15:30',
@@ -121,7 +121,7 @@ describe "user goes to trip dashboard" do
                        subscription_id: subscription.id,
                        bike_id: bike.id,
                        zipcode_id: zipcode.id)
-   trip1 = Trip.create!(duration: 77,
+    Trip.create!(duration: 77,
                       start_station_id: station_1.id,
                       start_date: '01/01/2017 14:14',
                       end_date: '01/03/2017 15:30',
@@ -145,7 +145,7 @@ describe "user goes to trip dashboard" do
       installation_date: '01/03/2017')
     bike = Bike.create(bike_number: 28)
     zipcode = Zipcode.create(zip_code: 85701)
-    trip = Trip.create!(duration: 88,
+    Trip.create!(duration: 88,
                        start_station_id: station_1.id,
                        start_date: '01/01/2017 14:14',
                        end_date: '01/01/2017 15:30',
@@ -153,7 +153,7 @@ describe "user goes to trip dashboard" do
                        subscription_id: subscription.id,
                        bike_id: bike.id,
                        zipcode_id: zipcode.id)
-   trip1 = Trip.create!(duration: 77,
+    Trip.create!(duration: 77,
                       start_station_id: station_1.id,
                       start_date: '01/01/2017 14:14',
                       end_date: '01/03/2017 15:30',
@@ -161,7 +161,7 @@ describe "user goes to trip dashboard" do
                       subscription_id: subscription.id,
                       bike_id: bike.id,
                       zipcode_id: zipcode.id)
-  trip1 = Trip.create!(duration: 77,
+    Trip.create!(duration: 77,
                      start_station_id: station_1.id,
                      start_date: '01/04/2017 14:14',
                      end_date: '01/03/2017 15:30',
@@ -185,7 +185,7 @@ describe "user goes to trip dashboard" do
       installation_date: '01/03/2017')
     bike = Bike.create(bike_number: 28)
     zipcode = Zipcode.create(zip_code: 85701)
-    trip = Trip.create!(duration: 88,
+    Trip.create!(duration: 88,
                        start_station_id: station_1.id,
                        start_date: '01/01/2017 14:14',
                        end_date: '01/01/2017 15:30',
@@ -193,7 +193,7 @@ describe "user goes to trip dashboard" do
                        subscription_id: subscription.id,
                        bike_id: bike.id,
                        zipcode_id: zipcode.id)
-   trip1 = Trip.create!(duration: 77,
+    Trip.create!(duration: 77,
                       start_station_id: station_1.id,
                       start_date: '01/01/2017 14:14',
                       end_date: '01/03/2017 15:30',
@@ -201,7 +201,7 @@ describe "user goes to trip dashboard" do
                       subscription_id: subscription.id,
                       bike_id: bike.id,
                       zipcode_id: zipcode.id)
-  trip1 = Trip.create!(duration: 77,
+    Trip.create!(duration: 77,
                      start_station_id: station_1.id,
                      start_date: '01/04/2017 14:14',
                      end_date: '01/03/2017 15:30',
@@ -227,7 +227,7 @@ describe "user goes to trip dashboard" do
     bike = Bike.create(bike_number: 28)
     bike2 = Bike.create(bike_number: 38)
     zipcode = Zipcode.create(zip_code: 85701)
-    trip = Trip.create!(duration: 88,
+    Trip.create!(duration: 88,
                        start_station_id: station_1.id,
                        start_date: '01/01/2017 14:14',
                        end_date: '01/01/2017 15:30',
@@ -235,7 +235,7 @@ describe "user goes to trip dashboard" do
                        subscription_id: subscription.id,
                        bike_id: bike.id,
                        zipcode_id: zipcode.id)
-   trip1 = Trip.create!(duration: 77,
+    Trip.create!(duration: 77,
                       start_station_id: station_1.id,
                       start_date: '01/01/2017 14:14',
                       end_date: '01/03/2017 15:30',
@@ -243,7 +243,7 @@ describe "user goes to trip dashboard" do
                       subscription_id: subscription.id,
                       bike_id: bike.id,
                       zipcode_id: zipcode.id)
-  trip1 = Trip.create!(duration: 77,
+    Trip.create!(duration: 77,
                      start_station_id: station_1.id,
                      start_date: '01/04/2017 14:14',
                      end_date: '01/03/2017 15:30',

@@ -19,6 +19,21 @@ class Trip < ActiveRecord::Base
     statement
   end
 
+  def self.reject_data(count_by_months)
+    count_by_months.reject { |month, count| count.nil? || count == 0 }
+  end
+
+  def self.format_monthly_trip_count(count_by_months)
+    count_by_months = reject_data(count_by_months)
+    result = []
+    total = 0
+    count_by_months.each do |month, count|
+      total += count
+      result << "#{month} had #{count} rides, total: #{total}"
+    end
+    result
+  end
+
   def self.shortest_ride
     minimum(:duration)
   end
@@ -58,28 +73,21 @@ class Trip < ActiveRecord::Base
   end
 
   def self.month_by_month
-    months = {1 => "January", 2 => "February", 3 => "March", 4 => "April",
-      5 => "May", 6 => "June", 7 => "July", 8 => "August", 9 => "September",
-      10 => "October", 11 => "November", 12 =>  "December"}
-    january = Trip.where(start_date: '01/01/2013 00:00 UTC'...'02/01/2013 00:00 UTC')
-    february = Trip.where(start_date: '02/01/2013 00:00 UTC'...'03/01/2013 00:00 UTC')
-    march = Trip.where(start_date: '03/01/2013 00:00 UTC'...'04/01/2013 00:00 UTC')
-    april = Trip.where(start_date: '04/01/2013 00:00 UTC'...'05/01/2013 00:00 UTC')
-    may = Trip.where(start_date: '05/01/2013 00:00 UTC'...'06/01/2013 00:00 UTC')
-    june = Trip.where(start_date: '06/01/2013 00:00 UTC'...'07/01/2013 00:00 UTC')
-    july = Trip.where(start_date: '07/01/2013 00:00 UTC'...'06/01/2013 00:00 UTC')
-    august = Trip.where(start_date: '08/01/2013 00:00 UTC'...'07/01/2013 00:00 UTC')
-    september = Trip.where(start_date: '09/01/2013 00:00 UTC'...'10/01/2013 00:00 UTC')
-    october = Trip.where(start_date: '10/01/2013 00:00 UTC'...'11/01/2013 00:00 UTC')
-    november = Trip.where(start_date: '11/01/2013 00:00 UTC'...'12/01/2013 00:00 UTC')
-    december = Trip.where(start_date: '12/01/2013 00:00 UTC'...'01/01/2014 00:00 UTC')
-
-    january = "January: #{january.count} rides, total: #{jan_total}"
-    february = " February: #{february.count} rides, total: #{feb_total}"
-    march = " March: #{march.count} rides, total: #{march_total}"
-    april = " April: #{april.count} rides, total: #{april_total}"
-    may = " May: #{may.count} rides, total: #{may.total}"
-    january + february + march + april + may
-    # require 'pry'; binding.pry
+    months = (1..12).to_a
+    years = [2013, 2014]
+    months_years = months.map { |month| [month, years[0]]}
+    months.each { |month| months_years << [month, years[1]]}
+    count_by_months = {}
+    months_years.each do |month, year|
+      if month == 12 && year != years.last
+      elsif month == 12 && year == years.last
+        trips = Trip.where(start_date: "#{month}/01/#{year} 00:00 UTC").count
+      else
+        trips = Trip.where(start_date: "#{month}/01/#{year} 00:00 UTC"..."#{month + 1}/01/#{year} 00:00 UTC").count
+      end
+      count_by_months[(month.to_s + '/' + year.to_s)] = trips
+    end
+    format_monthly_trip_count(count_by_months)
   end
+
 end

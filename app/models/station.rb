@@ -4,6 +4,8 @@ class Station < ActiveRecord::Base
   validates :city, presence: true
   validates :installation_date, presence: true
   belongs_to :city
+  has_many :beginning_trips, inverse_of: :start_station, class_name: "Trip", foreign_key: :start_station_id
+  has_many :ending_trips, inverse_of: :end_station, class_name: "Trip", foreign_key: :end_station_id
 
   def self.average_bikes
     average(:dock_count).round(1)
@@ -40,11 +42,22 @@ class Station < ActiveRecord::Base
     station_name = self.find_by(installation_date: minimum(:installation_date)).name
     "#{station_name}: #{min_date.month}/#{min_date.day}/#{min_date.year}"
   end
-  # 
-  # def self.most_common_ending_station
-  #   # require 'pry'; binding.pry
-  #   # station = select("stations.id, count(trips.end_station_id) AS number_starting").group("station.id").order("number_starting asc").limit(1).first
-  #   station_id = select("trips.end_station_id, count(trips.end_station_id) as frequency").group("trips.end_station_id").order("frequency asc").limit(1).first
-  #   station.name
-  # end
+
+  def most_frequent_destination
+    id = beginning_trips.group(:end_station_id).order("count(*) desc").limit(1).pluck(:end_station_id).first
+    if id
+      Station.find(id).name
+    end
+  end
+
+  def most_frequent_origin
+    id = ending_trips.group(:start_station_id).order("count(*) desc").limit(1).pluck(:start_station_id).first
+    if id
+      Station.find(id).name
+    end
+  end
+
+  def rides_ended
+    ending_trips.count
+  end
 end

@@ -433,7 +433,9 @@ describe Trip do
                        bike_id: bike2.id,
                        zipcode_id: zipcode.id)
 
-      result = "January: 1 ride, total: 1, February: 1 ride, total: 2, March: 2 rides, total: 3"
+      result = ["1/2013 had 1 rides, total: 1",
+      "2/2013 had 1 rides, total: 2",
+      "3/2013 had 2 rides, total: 4"]
       expect(Trip.month_by_month).to eq(result)
     end
   end
