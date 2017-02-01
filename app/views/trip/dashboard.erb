@@ -1,0 +1,23 @@
+<h1>Trip Dashboard</h1>
+
+<div class="row">
+      <div class="col s12 m7">
+        <div class="card">
+          <div class="card-image">
+            <img src="station_card.jpg">
+            <span class="card-title">Card Title</span>
+          </div>
+          <div class="card-content">
+            <section>
+              <p>Shortest Ride (seconds): <%= Trip.shortest_ride %></p>
+              <p>Longest Ride (seconds): <%= Trip.longest_ride %></p>
+              <p>Average Trip Time (seconds): <%= Trip.average_duration %></p>
+              <p>Busiest Day: <%= Trip.busiest_day %></p>
+              <p>Slowest Day: <%= Trip.slowest_day %></p>
+              <p>Most Ridden Bike: <%= Trip.most_ridden %></p>
+              <p>Least Ridden Bike: <%= Trip.least_ridden %></p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>

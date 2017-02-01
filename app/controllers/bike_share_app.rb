@@ -75,6 +75,10 @@ class BikeShareApp < Sinatra::Base
    erb :"trip/new"
  end
 
+ get '/trips-dashboard' do
+   erb :"trip/dashboard"
+ end
+
  post '/trips' do
    bike = Bike.create(bike_number: params[:trip][:bike])
    subscription = Subscription.create(account: params[:trip][:subscription])
