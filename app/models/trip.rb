@@ -42,16 +42,21 @@ class Trip < ActiveRecord::Base
     count = Trip.where(start_date: date_time).count
     correct_rides_grammar("#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides", count)
   end
+  #
+  # def self.most_ridden
+  #   bike_id = group('bike_id').order('count(*)').pluck(:bike_id).last
+  #   count = Trip.where(bike_id: bike_id).count
+  #   correct_rides_grammar("Bike #{Bike.find(bike_id).bike_number} had #{count} rides", count)
+  # end
+  # 
+  # def self.least_ridden
+  #   bike_id = group('bike_id').order('count(*)').pluck(:bike_id).first
+  #   count = Trip.where(bike_id: bike_id).count
+  #   correct_rides_grammar("Bike #{Bike.find(bike_id).bike_number} had #{count} rides", count)
+  # end
 
-  def self.most_ridden
-    bike_id = group('bike_id').order('count(*)').pluck(:bike_id).last
-    count = Trip.where(bike_id: bike_id).count
-    correct_rides_grammar("Bike #{Bike.find(bike_id).bike_number} had #{count} rides", count)
-  end
+  def self.subscriptions
+    subscriptions = Trip.pluck(:subscriptions)
 
-  def self.least_ridden
-    bike_id = group('bike_id').order('count(*)').pluck(:bike_id).first
-    count = Trip.where(bike_id: bike_id).count
-    correct_rides_grammar("Bike #{Bike.find(bike_id).bike_number} had #{count} rides", count)
   end
 end
