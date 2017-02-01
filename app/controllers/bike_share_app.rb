@@ -3,7 +3,7 @@ require 'will_paginate/active_record'
 class BikeShareApp < Sinatra::Base
   include WillPaginate::Sinatra::Helpers
  get '/' do
-   "Hello"
+   erb :"home/home"
  end
 
  get '/stations' do
