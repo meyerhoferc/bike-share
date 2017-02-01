@@ -24,7 +24,7 @@ end
 stations_cache = {}
 
 stations.each do |row|
-  city = City.find_or_create_by(name: row[:city])
+  city = City.find_or_create_by!(name: row[:city])
   station = city.stations.create!(id: row[:id], name: row[:name], dock_count: row[:dock_count].to_i, installation_date: format_date(row[:installation_date]))
   stations_cache[station.id] = station
 end

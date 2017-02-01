@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131223453) do
+ActiveRecord::Schema.define(version: 20170201012126) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +20,14 @@ ActiveRecord::Schema.define(version: 20170131223453) do
     t.integer  "bike_number"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["bike_number"], name: "index_bikes_on_bike_number", using: :btree
   end
 
   create_table "cities", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_cities_on_name", using: :btree
   end
 
   create_table "conditions", force: :cascade do |t|
@@ -53,6 +56,7 @@ ActiveRecord::Schema.define(version: 20170131223453) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "account"
+    t.index ["account"], name: "index_subscriptions_on_account", using: :btree
   end
 
   create_table "trips", force: :cascade do |t|
@@ -72,6 +76,7 @@ ActiveRecord::Schema.define(version: 20170131223453) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "zip_code"
+    t.index ["zip_code"], name: "index_zipcodes_on_zip_code", using: :btree
   end
 
 end

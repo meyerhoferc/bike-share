@@ -253,7 +253,7 @@ describe "user goes to trip dashboard" do
                      zipcode_id: zipcode.id)
 
     visit '/trips-dashboard'
-    
+
     within('.card-content') do
       expect(page).to have_content('Least Ridden Bike: Bike 38 had 1 ride')
     end
