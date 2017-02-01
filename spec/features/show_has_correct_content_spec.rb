@@ -84,6 +84,8 @@ describe 'user goes to show page' do
       expect(page).to have_content(station.most_frequent_origin)
       expect(find("#rides_ending")).to have_content(station.rides_ended)
       expect(find('#rides_starting')).to have_content(station.rides_started)
+      expect(find('#most_frequent_zipcode')).to have_content(station.most_frequent_zipcode)
+      expect(find('#most_frequent_bike')).to have_content(station.most_frequent_bike)
     end
   end
 end

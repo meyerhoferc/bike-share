@@ -65,4 +65,9 @@ class Station < ActiveRecord::Base
     id = beginning_trips.group(:zipcode_id).order("count(*) desc").limit(1).pluck(:zipcode_id).first
     Zipcode.find(id).zip_code if id
   end
+
+  def most_frequent_bike
+    id = beginning_trips.group(:bike_id).order("count(*) desc").limit(1).pluck(:bike_id).first
+    Bike.find(id).bike_number if id
+  end
 end
