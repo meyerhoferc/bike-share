@@ -2,11 +2,10 @@
 
 <% @trips.each do |trip| %>
 <div class='row'>
-  <div class='col s12 m7'>
+  <div class='col s6 m4'>
     <div class='card'>
       <div class='card-image'>
-        <!-- <img src='trip_card.jpg' /> -->
-        <span class='card-title'>Card Title</span>
+        <img src='trip_card.jpg' />
       </div>
       <div class='card-content'>
         <section>
@@ -29,3 +28,5 @@
   </div>
 </div>
 <% end%>
+
+<%= will_paginate @trips %>
