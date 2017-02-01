@@ -195,5 +195,131 @@ describe Station do
       expect(station_2.rides_ended).to eq(2)
       expect(station_3.rides_ended).to eq(1)
     end
+
+    it 'returns number of rides started at station' do
+      city1 = City.create(name: 'Denver')
+      station_1 = city1.stations.create(name: "Cat", dock_count: 10, installation_date: '01/01/2017')
+      city2 = City.create(name: 'Seattle')
+      station_2 = city2.stations.create(name: "Dog", dock_count: 11, installation_date: '01/04/2017')
+      station_3 = city2.stations.create(name: "Boise", dock_count: 11, installation_date: '01/04/2017')
+      subscription = Subscription.create(account: "subscriber")
+      bike = Bike.create(bike_number: 28)
+      zipcode = Zipcode.create(zip_code: 85701)
+
+      Trip.create(duration: 88,
+                  start_station_id: station_1.id,
+                  start_date: '01/01/2017 14:14',
+                  end_date: '01/01/2017 15:30',
+                  end_station_id: station_2.id,
+                  subscription_id: subscription.id,
+                  bike_id: bike.id,
+                  zipcode_id: zipcode.id)
+
+      Trip.create(duration: 88,
+                  start_station_id: station_1.id,
+                  start_date: '01/01/2017 14:14',
+                  end_date: '01/01/2017 15:30',
+                  end_station_id: station_2.id,
+                  subscription_id: subscription.id,
+                  bike_id: bike.id,
+                  zipcode_id: zipcode.id)
+
+      Trip.create(duration: 88,
+                  start_station_id: station_2.id,
+                  start_date: '01/01/2017 14:14',
+                  end_date: '01/01/2017 15:30',
+                  end_station_id: station_3.id,
+                  subscription_id: subscription.id,
+                  bike_id: bike.id,
+                  zipcode_id: zipcode.id)
+
+      expect(station_1.rides_started).to eq(2)
+      expect(station_2.rides_started).to eq(1)
+    end
+
+    it 'returns the most frequent zipcode for trips starting here' do
+      city1 = City.create(name: 'Denver')
+      station_1 = city1.stations.create(name: "Cat", dock_count: 10, installation_date: '01/01/2017')
+      city2 = City.create(name: 'Seattle')
+      station_2 = city2.stations.create(name: "Dog", dock_count: 11, installation_date: '01/04/2017')
+      station_3 = city2.stations.create(name: "Boise", dock_count: 11, installation_date: '01/04/2017')
+      subscription = Subscription.create(account: "subscriber")
+      bike = Bike.create(bike_number: 28)
+      zipcode_1 = Zipcode.create(zip_code: 85701)
+      zipcode_2 = Zipcode.create(zip_code: 90210)
+
+      Trip.create(duration: 88,
+                  start_station_id: station_1.id,
+                  start_date: '01/01/2017 14:14',
+                  end_date: '01/01/2017 15:30',
+                  end_station_id: station_2.id,
+                  subscription_id: subscription.id,
+                  bike_id: bike.id,
+                  zipcode_id: zipcode_1.id)
+
+      Trip.create(duration: 88,
+                  start_station_id: station_1.id,
+                  start_date: '01/01/2017 14:14',
+                  end_date: '01/01/2017 15:30',
+                  end_station_id: station_2.id,
+                  subscription_id: subscription.id,
+                  bike_id: bike.id,
+                  zipcode_id: zipcode_1.id)
+
+      Trip.create(duration: 88,
+                  start_station_id: station_2.id,
+                  start_date: '01/01/2017 14:14',
+                  end_date: '01/01/2017 15:30',
+                  end_station_id: station_3.id,
+                  subscription_id: subscription.id,
+                  bike_id: bike.id,
+                  zipcode_id: zipcode_2.id)
+
+      expect(station_1.most_frequent_zipcode).to eq('85701')
+      expect(station_2.most_frequent_zipcode).to eq('90210')
+    end
+
+    it 'returns the most frequent bike for trips starting here' do
+      city1 = City.create(name: 'Denver')
+      station_1 = city1.stations.create(name: "Cat", dock_count: 10, installation_date: '01/01/2017')
+      city2 = City.create(name: 'Seattle')
+      station_2 = city2.stations.create(name: "Dog", dock_count: 11, installation_date: '01/04/2017')
+      station_3 = city2.stations.create(name: "Boise", dock_count: 11, installation_date: '01/04/2017')
+      subscription = Subscription.create(account: "subscriber")
+      bike_1 = Bike.create(bike_number: 28)
+      bike_2 = Bike.create(bike_number: 58)
+      zipcode_1 = Zipcode.create(zip_code: 85701)
+      zipcode_2 = Zipcode.create(zip_code: 90210)
+
+      Trip.create(duration: 88,
+                  start_station_id: station_1.id,
+                  start_date: '01/01/2017 14:14',
+                  end_date: '01/01/2017 15:30',
+                  end_station_id: station_2.id,
+                  subscription_id: subscription.id,
+                  bike_id: bike_1.id,
+                  zipcode_id: zipcode_1.id)
+
+      Trip.create(duration: 88,
+                  start_station_id: station_1.id,
+                  start_date: '01/01/2017 14:14',
+                  end_date: '01/01/2017 15:30',
+                  end_station_id: station_2.id,
+                  subscription_id: subscription.id,
+                  bike_id: bike_1.id,
+                  zipcode_id: zipcode_1.id)
+
+      Trip.create(duration: 88,
+                  start_station_id: station_2.id,
+                  start_date: '01/01/2017 14:14',
+                  end_date: '01/01/2017 15:30',
+                  end_station_id: station_3.id,
+                  subscription_id: subscription.id,
+                  bike_id: bike_2.id,
+                  zipcode_id: zipcode_2.id)
+
+      expect(station_1.most_frequent_bike).to eq(28)
+      expect(station_2.most_frequent_bike).to eq(58)
+    end
   end
 end
