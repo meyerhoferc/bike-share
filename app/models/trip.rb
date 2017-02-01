@@ -72,6 +72,16 @@ class Trip < ActiveRecord::Base
     Station.find(station_id.start_station_id).name
   end
 
+  def self.determine_number_of_trips_for_month(month, year)
+    years = [2013, 2014]
+    if month == 12 && year != years.last
+    elsif month == 12 && year == years.last
+      trips = Trip.where(start_date: "#{month}/01/#{year} 00:00 UTC").count
+    else
+      trips = Trip.where(start_date: "#{month}/01/#{year} 00:00 UTC"..."#{month + 1}/01/#{year} 00:00 UTC").count
+    end
+  end
+
   def self.month_by_month
     months = (1..12).to_a
     years = [2013, 2014]
@@ -79,12 +89,7 @@ class Trip < ActiveRecord::Base
     months.each { |month| months_years << [month, years[1]]}
     count_by_months = {}
     months_years.each do |month, year|
-      if month == 12 && year != years.last
-      elsif month == 12 && year == years.last
-        trips = Trip.where(start_date: "#{month}/01/#{year} 00:00 UTC").count
-      else
-        trips = Trip.where(start_date: "#{month}/01/#{year} 00:00 UTC"..."#{month + 1}/01/#{year} 00:00 UTC").count
-      end
+      trips = determine_number_of_trips_for_month(month, year)
       count_by_months[(month.to_s + '/' + year.to_s)] = trips
     end
     format_monthly_trip_count(count_by_months)
