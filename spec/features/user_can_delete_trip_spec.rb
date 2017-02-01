@@ -10,7 +10,7 @@ describe 'user deletes trip' do
       installation_date: '01/03/2017')
     bike = Bike.create(bike_number: 28)
     zipcode = Zipcode.create(zip_code: 85701)
-    trip = Trip.create(duration: 102,
+    Trip.create(duration: 102,
                        start_date: '01/01/2017 14:14',
                        start_station_id: station_1.id,
                        end_date: '01/01/2017 15:30',

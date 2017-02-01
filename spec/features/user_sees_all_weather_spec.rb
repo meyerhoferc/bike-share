@@ -22,15 +22,17 @@ describe "When a user visits conditions/index" do
 
     Condition.all.each do |condition|
       visit('/conditions')
-
-      expect(page).to have_content(condition.date)
-      expect(page).to have_content(condition.max_temperature_f)
-      expect(page).to have_content(condition.min_temperature_f)
-      expect(page).to have_content(condition.mean_temperature_f)
-      expect(page).to have_content(condition.mean_humidity)
-      expect(page).to have_content(condition.mean_visibility)
-      expect(page).to have_content(condition.mean_wind_speed)
-      expect(page).to have_content(condition.precipitation_inches)
+      
+      within("#weather") do
+        expect(page).to have_content("5/1/2017")
+        expect(page).to have_content(condition.max_temperature_f)
+        expect(page).to have_content(condition.min_temperature_f)
+        expect(page).to have_content(condition.mean_temperature_f)
+        expect(page).to have_content(condition.mean_humidity)
+        expect(page).to have_content(condition.mean_visibility)
+        expect(page).to have_content(condition.mean_wind_speed)
+        expect(page).to have_content(condition.precipitation_inches)
+      end
     end
   end
 end
