@@ -56,4 +56,30 @@ class Trip < ActiveRecord::Base
     .limit(1).first
     Station.find(station_id.start_station_id).name
   end
+
+  def self.month_by_month
+    months = {1 => "January", 2 => "February", 3 => "March", 4 => "April",
+      5 => "May", 6 => "June", 7 => "July", 8 => "August", 9 => "September",
+      10 => "October", 11 => "November", 12 =>  "December"}
+    january = Trip.where(start_date: '01/01/2013 00:00 UTC'...'02/01/2013 00:00 UTC')
+    february = Trip.where(start_date: '02/01/2013 00:00 UTC'...'03/01/2013 00:00 UTC')
+    march = Trip.where(start_date: '03/01/2013 00:00 UTC'...'04/01/2013 00:00 UTC')
+    april = Trip.where(start_date: '04/01/2013 00:00 UTC'...'05/01/2013 00:00 UTC')
+    may = Trip.where(start_date: '05/01/2013 00:00 UTC'...'06/01/2013 00:00 UTC')
+    june = Trip.where(start_date: '06/01/2013 00:00 UTC'...'07/01/2013 00:00 UTC')
+    july = Trip.where(start_date: '07/01/2013 00:00 UTC'...'06/01/2013 00:00 UTC')
+    august = Trip.where(start_date: '08/01/2013 00:00 UTC'...'07/01/2013 00:00 UTC')
+    september = Trip.where(start_date: '09/01/2013 00:00 UTC'...'10/01/2013 00:00 UTC')
+    october = Trip.where(start_date: '10/01/2013 00:00 UTC'...'11/01/2013 00:00 UTC')
+    november = Trip.where(start_date: '11/01/2013 00:00 UTC'...'12/01/2013 00:00 UTC')
+    december = Trip.where(start_date: '12/01/2013 00:00 UTC'...'01/01/2014 00:00 UTC')
+
+    january = "January: #{january.count} rides, total: #{jan_total}"
+    february = " February: #{february.count} rides, total: #{feb_total}"
+    march = " March: #{march.count} rides, total: #{march_total}"
+    april = " April: #{april.count} rides, total: #{april_total}"
+    may = " May: #{may.count} rides, total: #{may.total}"
+    january + february + march + april + may
+    # require 'pry'; binding.pry
+  end
 end
