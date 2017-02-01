@@ -49,4 +49,11 @@ class Trip < ActiveRecord::Base
     .limit(1).first
     Station.find(station_id.end_station_id).name
   end
+
+  def self.most_common_starting_station
+    station_id = select("trips.start_station_id, count(trips.start_station_id) as frequency")
+    .group("trips.start_station_id").order("frequency desc")
+    .limit(1).first
+    Station.find(station_id.start_station_id).name
+  end
 end
