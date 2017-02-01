@@ -40,4 +40,11 @@ class Station < ActiveRecord::Base
     station_name = self.find_by(installation_date: minimum(:installation_date)).name
     "#{station_name}: #{min_date.month}/#{min_date.day}/#{min_date.year}"
   end
+  # 
+  # def self.most_common_ending_station
+  #   # require 'pry'; binding.pry
+  #   # station = select("stations.id, count(trips.end_station_id) AS number_starting").group("station.id").order("number_starting asc").limit(1).first
+  #   station_id = select("trips.end_station_id, count(trips.end_station_id) as frequency").group("trips.end_station_id").order("frequency asc").limit(1).first
+  #   station.name
+  # end
 end
