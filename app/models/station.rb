@@ -4,6 +4,8 @@ class Station < ActiveRecord::Base
   validates :city, presence: true
   validates :installation_date, presence: true
   belongs_to :city
+  has_many :beginning_trips, inverse_of: :start_station, class_name: "Trip", foreign_key: :start_station_id
+  has_many :ending_trips, inverse_of: :end_station, class_name: "Trip", foreign_key: :end_station_id
 
   def self.average_bikes
     average(:dock_count).round(1)
@@ -41,7 +43,32 @@ class Station < ActiveRecord::Base
     "#{station_name}: #{min_date.month}/#{min_date.day}/#{min_date.year}"
   end
 
-  def self.day_with_most_starts
+  def day_with_most_starts
+    date = beginning_trips.group(:start_date).order('count(*)').pluck(:start_date).last
+    count = beginning_trips.group(:start_date).order('count(*)').pluck(:start_date).count
+    "#{format_date(date)} had #{count} starts" if date
+  end
 
+  def most_frequent_destination
+    id = beginning_trips.group(:end_station_id).order("count(*) desc").limit(1).pluck(:end_station_id).first
+    if id
+      Station.find(id).name
+    end
+  end
+
+  def most_frequent_origin
+    id = ending_trips.group(:start_station_id).order("count(*) desc").limit(1).pluck(:start_station_id).first
+    if id
+      Station.find(id).name
+    end
+  end
+
+  def rides_ended
+    ending_trips.count
+  end
+
+  def format_date(date)
+    x = date.to_s.split("-")
+    "#{x[1]}/#{x[2][0..1]}/#{x[0]}"
   end
 end

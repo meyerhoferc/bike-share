@@ -5,6 +5,10 @@
   <p>City: <%= @station.city.name %></p>
   <p>Total Number of Docks: <%= @station.dock_count %></p>
   <p>Installation Date: <%= @station.installation_date %></p>
+  <p>Most Frequent Destination: <%= @station.most_frequent_destination %></p>
+  <p>Most Frequent Origin: <%= @station.most_frequent_origin %></p>
+  <p id="rides_ending">Rides Ended at this Station: <%= @station.rides_ended %></p>
+  <p id="day_with_most_starts">Busiest Day for this Station: <%= @station.day_with_most_starts %></p>
 </section>
 
 <a href="/stations/<%= @station.id %>/edit">Edit</a>
