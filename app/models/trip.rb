@@ -12,11 +12,26 @@ class Trip < ActiveRecord::Base
   belongs_to :bike
   belongs_to :subscription
   belongs_to :zipcode
+  belongs_to :condition
 
 
   def self.correct_rides_grammar(statement, count)
     return statement.gsub('rides', 'ride') if count == 1
     statement
+  end
+
+  def self.most_frequent_destination
+    id = group(:end_station_id).order("count(*) desc").limit(1).pluck(:end_station_id).first
+    if id
+      Station.find(id).name
+    end
+  end
+
+  def self.most_frequent_origin
+    id = group(:start_station_id).order("count(*) desc").limit(1).pluck(:start_station_id).first
+    if id
+      Station.find(id).name
+    end
   end
 
   def self.reject_data(count_by_months)

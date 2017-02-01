@@ -20,14 +20,15 @@ describe "user goes to show" do
                        zipcode_id: zipcode.id)
 
     visit("/trips/#{trip.id}")
-
-    expect(page).to have_content(trip.duration)
-    expect(page).to have_content(trip.start_date)
-    expect(page).to have_content(station_1.name)
-    expect(page).to have_content(trip.end_date)
-    expect(page).to have_content(station_2.name)
-    expect(page).to have_content(bike.bike_number)
-    expect(page).to have_content(subscription.account)
-    expect(page).to have_content(zipcode.zip_code)
+    within("#trip-show") do
+      expect(page).to have_content(trip.duration)
+      expect(page).to have_content(trip.start_date)
+      expect(page).to have_content(station_1.name)
+      expect(page).to have_content(trip.end_date)
+      expect(page).to have_content(station_2.name)
+      expect(page).to have_content(bike.bike_number)
+      expect(page).to have_content(subscription.account)
+      expect(page).to have_content(zipcode.zip_code)
+    end
   end
 end
