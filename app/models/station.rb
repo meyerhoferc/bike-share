@@ -45,16 +45,12 @@ class Station < ActiveRecord::Base
 
   def most_frequent_destination
     id = beginning_trips.group(:end_station_id).order("count(*) desc").limit(1).pluck(:end_station_id).first
-    if id
-      Station.find(id).name
-    end
+    Station.find(id).name if id
   end
 
   def most_frequent_origin
     id = ending_trips.group(:start_station_id).order("count(*) desc").limit(1).pluck(:start_station_id).first
-    if id
-      Station.find(id).name
-    end
+    Station.find(id).name if id
   end
 
   def rides_ended
@@ -63,5 +59,10 @@ class Station < ActiveRecord::Base
 
   def rides_started
     beginning_trips.count
+  end
+
+  def most_frequent_zipcode
+    id = beginning_trips.group(:zipcode_id).order("count(*) desc").limit(1).pluck(:zipcode_id).first
+    Zipcode.find(id).zip_code if id
   end
 end
