@@ -88,12 +88,12 @@ trips.each do |row|
     end
 
     Trip.create!(duration: duration,
-    start_date: start_date,
-    start_station: start_station,
-    end_date: end_date,
-    end_station: end_station,
-    bike: bike,
-    subscription: subscription,
-    zipcode: zipcode,
-    condition: weather)
-end
+      start_date: start_date,
+      start_station: start_station,
+      end_date: end_date,
+      end_station: end_station,
+      bike: bike,
+      subscription: subscription,
+      zipcode: zipcode,
+      condition: weather)
+    end

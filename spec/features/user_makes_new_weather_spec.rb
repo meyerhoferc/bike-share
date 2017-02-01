@@ -16,7 +16,6 @@ describe "user goes to /conditions/new" do
 
     expect(current_path).to eq("/conditions/1")
     within("#weather") do
-      
       expect(page).to have_content("92")
       expect(page).to have_content("2.3")
       expect(page).to have_content("6/6/2016")

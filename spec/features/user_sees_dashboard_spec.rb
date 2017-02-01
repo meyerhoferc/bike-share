@@ -8,10 +8,11 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: Faker::Cat.name, dock_count: 11, installation_date: '01/01/2017')
 
     visit '/station-dashboard'
-
-    expect(page).to have_content("Total Stations")
-    expect(page).to have_content(2)
-    expect(Station.count).to eq(2)
+    within("#station-dashboard") do
+      expect(page).to have_content("Total Stations")
+      expect(page).to have_content(2)
+      expect(Station.count).to eq(2)
+    end
   end
 
   it 'sees average number of bikes' do
@@ -22,8 +23,9 @@ describe "user goes to station dashboard" do
 
     visit '/station-dashboard'
 
-    expect(page).to have_content('10.5')
-    expect(page).to have_content("Station Dashboard")
+    within("#station-dashboard") do
+      expect(page).to have_content('10.5')
+    end
   end
 
   it 'sees fewest bikes' do
@@ -34,10 +36,11 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: "Fargo", dock_count: 10, installation_date: '01/02/2017')
 
     visit '/station-dashboard'
-
-    expect(page).to have_content("10")
-    expect(page).to have_content("Fewest Bikes")
-    expect(page).to have_content("Station with Fewest Bikes: Tallahassee")
+    within("#station-dashboard") do
+      expect(page).to have_content("10")
+      expect(page).to have_content("Fewest Bikes")
+      expect(page).to have_content("Station with Fewest Bikes: Tallahassee")
+    end
   end
 
   it 'sees most bikes' do
@@ -47,10 +50,11 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: "Austin", dock_count: 11, installation_date: '01/01/2017')
 
     visit '/station-dashboard'
-
-    expect(page).to have_content("11")
-    expect(page).to have_content("Most Bikes")
-    expect(page).to have_content("Station with Most Bikes: Austin")
+    within("#station-dashboard") do
+      expect(page).to have_content("11")
+      expect(page).to have_content("Most Bikes")
+      expect(page).to have_content("Station with Most Bikes: Austin")
+    end
   end
 
   it 'sees newest station' do
@@ -60,9 +64,10 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: "Tucson", dock_count: 11, installation_date: '01/04/2017')
 
     visit '/station-dashboard'
-
-    expect(page).to have_content("Newest Station")
-    expect(page).to have_content("Tucson: 4/1/2017")
+    within("#station-dashboard") do
+      expect(page).to have_content("Newest Station")
+      expect(page).to have_content("Tucson: 4/1/2017")
+    end
   end
 
   it 'sees oldest station' do
@@ -72,8 +77,9 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: "Tucson", dock_count: 11, installation_date: '01/04/2017')
 
     visit '/station-dashboard'
-
-    expect(page).to have_content("Oldest Station")
-    expect(page).to have_content("Portland: 1/1/2017")
+    within("#station-dashboard") do
+      expect(page).to have_content("Oldest Station")
+      expect(page).to have_content("Portland: 1/1/2017")
+    end
   end
 end
