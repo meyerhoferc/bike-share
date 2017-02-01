@@ -1,5 +1,6 @@
 <h1>All Conditions</h1>
 
+<div id="weather">
 <% @conditions.each do |condition| %>
 <div class='row'>
   <div class='col s12 m7'>
@@ -10,7 +11,7 @@
       </div>
       <div class='card-content'>
         <section>
-          <p>Date: <%= condition.date %></p>
+          <p>Date: <%= condition.date.month %>/<%= condition.date.day %>/<%= condition.date.year %></p>
           <p>Maximum Temperature (F): <%= condition.max_temperature_f %></p>
           <p>Minimum Temperature (F): <%= condition.min_temperature_f %></p>
           <p>Mean Temperature (F): <%= condition.mean_temperature_f %></p>
@@ -19,9 +20,14 @@
           <p>Mean Wind Speed: <%= condition.mean_wind_speed %></p>
           <p>Precipitation: <%= condition.precipitation_inches %> inches</p>
         </section>
+        <a href="/conditions/<%= condition.id %>/edit">Edit</a>
+        <form action='/conditions/<%= condition.id %>' method='POST'>
+          <input type='hidden' name='_method' value='DELETE' />
+          <input type='submit' value='Delete' />
         </form>
       </div>
     </div>
   </div>
+</div>
 </div>
 <% end%>

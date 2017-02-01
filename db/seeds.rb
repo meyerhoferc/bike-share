@@ -4,6 +4,7 @@ require './app/models/bike.rb'
 require './app/models/subscription.rb'
 require './app/models/zipcode.rb'
 require './app/models/trip.rb'
+require './app/models/condition.rb'
 require 'csv'
 
 stations = CSV.open 'db/csv/station.csv',
@@ -11,6 +12,9 @@ headers: true, header_converters: :symbol
 
 trips = CSV.open 'db/csv/trip.csv',
 headers: true, header_converters: :symbol
+
+conditions = CSV.open 'db/csv/weather.csv',
+headers:true, header_converters: :symbol
 
 def format_date(date)
   day, month, year = date.split('/')
@@ -33,15 +37,6 @@ trips.each do |row|
   begin
     start_station = row[:start_station_id].to_i
     end_station = row[:end_station_id].to_i
-
-    # start_station_name = "Stanford in Redwood City" if start_station_name == "Broadway at Main"
-    # end_station_name = "Stanford in Redwood City" if end_station_name == "Broadway at Main"
-    # start_station_name = "Santa Clara County Civic Center" if start_station_name == "San Jose Government Center"
-    # end_station_name = "Santa Clara County Civic Center" if end_station_name == "San Jose Government Center"
-    # start_station_name = "Post at Kearney" if start_station_name == "Post at Kearny"
-    # end_station_name = "Post at Kearney" if end_station_name == "Post at Kearny"
-    # start_station_name = "Washington at Kearney" if start_station_name == "Washington at Kearny"
-    # end_station_name = "Washington at Kearney" if end_station_name == "Washington at Kearny"
 
     if zipcode_cache[(row[:zip_code])]
       zipcode = zipcode_cache[(row[:zip_code])]
@@ -83,4 +78,22 @@ trips.each do |row|
     puts e
     puts row
   end
-end
+
+  conditions.each do |row|
+    begin
+
+  Condition.create!(
+                    date: format_date(row[:date]),
+                    max_temperature_f: row[:max_temperature_f],
+                    mean_temperature_f: row[:mean_temperature_f],
+                    min_temperature_f: row[:min_temperature_f],
+                    mean_humidity: row[:mean_humidity],
+                    mean_visibility: row[:mean_visibility_miles],
+                    mean_wind_speed: row[:mean_wind_speed_mph],
+                    precipitation_inches: row[:precipitation_inches]
+                   )
+   rescue => e
+     puts e
+     puts row
+   end
+  end
