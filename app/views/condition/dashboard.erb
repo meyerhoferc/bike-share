@@ -63,6 +63,20 @@
                 <p><%= ride %></p>
               <% end %>
             </section>
+            </section>
+            <p>Day with Most Rides: </p>
+            <% Condition.precipitation_highest_rides.each do |ride| %>
+              <p><%= ride %></p>
+            <% end %>
+            <p>Day with Least Rides: </p>
+            <% Condition.precipitation_lowest_rides.each do |ride| %>
+              <p><%= ride %></p>
+            <% end %>
+            <p>Average Rides per Day: </p>
+            <% Condition.precipitation_average_rides.each do |ride| %>
+              <p><%= ride %></p>
+            <% end %>
+          </section>
           </div>
         </div>
       </div>
