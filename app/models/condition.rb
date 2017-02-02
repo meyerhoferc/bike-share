@@ -72,4 +72,29 @@ class Condition < ActiveRecord::Base
     end.compact
     counts.map { |count| "Precipitation: #{count[:range]} had #{count[:count]} rides"}
   end
+  def self.precipitation_average_rides
+    ranges = [(0.0...0.5), (0.5...1.0), (1.0...1.5), (1.5...2.0), (2.0...2.5), (2.5...3.0), (3.0...3.5), (3.5...4.0)]
+    counts = ranges.map do |range|
+      require 'pry'; binding.pry;
+
+      trips = Trip.select("date(start_date), count(start_date)")
+                  .joins(:condition)
+                  .where("conditions.precipitation_inches" => range)
+                  .group("date(start_date)")
+
+      trips.reduce(0)
+    end.compact
+    counts.map { |count| "Precipitation: #{count[:range]} had #{count[:count]} rides"}
+  end
 end
+
+# if trips.present?
+#   min_trip = trips.min_by { |trip| trip.attributes["count"] }
+#   {
+#     range: range,
+#     count: min_trip.attributes["count"],
+#     date: min_trip.attributes["date"]
+#   }
+# else
+#   nil
+# end
