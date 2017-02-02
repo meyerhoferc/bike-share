@@ -217,6 +217,7 @@ class Condition < ActiveRecord::Base
   end.compact
   counts.map { |count| "Precipitation: #{count[:range]} had #{count[:count]} rides"}
   end
+
   def self.precipitation_lowest_rides
     ranges = [(0.0...0.5), (0.5...1.0), (1.0...1.5), (1.5...2.0), (2.0...2.5), (2.5...3.0), (3.0...3.5), (3.5...4.0)]
     counts = ranges.map do |range|
@@ -257,6 +258,6 @@ class Condition < ActiveRecord::Base
           nil
         end
       end.compact
-      counts.map { |count| "Precipitation: #{count[:range]} Averaged: #{count[:average]} rides"}
+      counts.map { |count| "Precipitation: #{count[:range]} Averaged: #{count[:average].round(2)} rides"}
   end
 end

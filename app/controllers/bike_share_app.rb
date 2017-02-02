@@ -1,5 +1,5 @@
-# require 'will_paginate'
 require 'will_paginate/active_record'
+
 class BikeShareApp < Sinatra::Base
   include WillPaginate::Sinatra::Helpers
  get '/' do
@@ -15,6 +15,7 @@ class BikeShareApp < Sinatra::Base
  get '/stations/new' do
     @stations = Station.all
     @cities = City.all
+
    erb :'station/new'
  end
 
@@ -24,6 +25,7 @@ class BikeShareApp < Sinatra::Base
 
  get '/stations/:id' do
    @station = Station.find(params[:id])
+   
    erb :'station/show'
  end
 
