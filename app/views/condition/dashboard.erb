@@ -5,7 +5,12 @@
         <div class="card">
           <div class="card-content">
             <section id="weather-dashboard">
-              
+              <section class='maximum-visibility-data'>
+                <h4>Maximum Number of Trips on a Day</h4>
+                <% @max_visibilities.each do |visibility| %>
+                <p><%= "#{visibility} "%></p>
+                <% end %>
+              </section>
             </section>
           </div>
         </div>
