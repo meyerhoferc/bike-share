@@ -5,22 +5,49 @@
         <div class="card">
           <div class="card-content">
             <section id="weather-dashboard">
+              <h4>Analysis of Trips for Visibility</h4>
               <section class='maximum-visibility-data'>
-                <h4>Maximum Number of Trips on a Day</h4>
+                <h5>Maximum Number of Trips on a Day</h5>
                 <% @max_visibilities.each do |visibility| %>
                 <p><%= "#{visibility} "%></p>
                 <% end %>
               </section>
               <section class='minimum-visibility-data'>
-                <h4>Minimum Number of Trips on a Day</h4>
+                <h5>Minimum Number of Trips on a Day</h5>
                 <% @min_visibilities.each do |visibility| %>
                 <p><%= "#{visibility} "%></p>
                 <% end %>
               </section>
               <section class='average-visibility-data'>
-                <h4>Average Number of Trips on a Day</h4>
+                <h5>Average Number of Trips on a Day</h5>
                 <% @ave_visibilities.each do |visibility| %>
                 <p><%= "#{visibility} "%></p>
+                <% end %>
+              </section>
+            </section>
+          </div>
+        </div>
+
+        <div class='card'>
+          <div class='card-content'>
+            <section id='wind-data'>
+              <h4>Analysis of Trips for Wind Speed</h4>
+              <section class='wind-maximum-rides'>
+                <h5>Maximum Number of Trips on a Day</h5>
+                <% @max_wind_speeds.each do |speed| %>
+                <p><%= "#{speed} "%></p>
+                <% end %>
+              </section>
+              <section class='wind-minimum-rides'>
+                <h5>Minimum Number of Trips on a Day</h5>
+                <% @min_wind_speeds.each do |speed| %>
+                <p><%= "#{speed} "%></p>
+                <% end %>
+              </section>
+              <section class='wind-average-rides'>
+                <h5>Average Number of Trips on a Day</h5>
+                <% @ave_wind_speeds.each do |speed| %>
+                <p><%= "#{speed} "%></p>
                 <% end %>
               </section>
             </section>
