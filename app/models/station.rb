@@ -72,6 +72,7 @@ class Station < ActiveRecord::Base
   def format_date(date)
     x = date.to_s.split("-")
     "#{x[1]}/#{x[2][0..1]}/#{x[0]}"
+  end
 
   def rides_started
     beginning_trips.count
