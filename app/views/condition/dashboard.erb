@@ -17,6 +17,12 @@
                 <p><%= "#{visibility} "%></p>
                 <% end %>
               </section>
+              <section class='average-visibility-data'>
+                <h4>Average Number of Trips on a Day</h4>
+                <% @ave_visibilities.each do |visibility| %>
+                <p><%= "#{visibility} "%></p>
+                <% end %>
+              </section>
             </section>
           </div>
         </div>

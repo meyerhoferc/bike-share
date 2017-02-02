@@ -71,6 +71,24 @@ class Condition < ActiveRecord::Base
     end.compact
     phrase = counts.map { |count| "Visibility: #{count[:range]} miles had #{count[:count]} trips"}
   end
-end
 
+  def self.visibility_average_rides
+    ranges = [(0...4), (4...8), (8...12), (12...16), (16...20), (20...24), (24...28), (28...32)]
+    counts = ranges.map do |range|
+      trips = Trip.select("date(start_date), count(start_date)")
+                   .joins(:condition)
+                   .where("conditions.mean_visibility" => range)
+                   .group("date(start_date)")
+      if trips.present?
+        total = 0
+        dates = trips.to_a.count
+        trips.each { |trip| total += trip.attributes["count"] }
+        { range: range, average: (total.to_f / dates.to_f).round(1) }
+      else
+        nil
+      end
+    end.compact
+    phrase = counts.map { |count| "Visibility: #{count[:range]} miles had an average of #{count[:average].to_i} trips"}
+  end
+end
 # require 'pry'; binding.pry
