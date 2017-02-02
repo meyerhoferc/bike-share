@@ -30,14 +30,13 @@ class Condition < ActiveRecord::Base
     counts.map { |count| "Temp: #{count[:range]} had #{count[:count]} rides"}
   end
 
-  def self.precipitation_highest_rides
-    ranges = [(0.0...0.5), (0.5...1.0), (1.0...1.5), (1.5...2.0), (2.0...2.5), (2.5...3.0), (3.0...3.5), (3.5...4.0)]
+  def self.visibility_highest_rides
+    ranges = [(0...4), (4...8), (8...12), (12...16), (16...20), (20...24), (24...28), (28...32)]
     counts = ranges.map do |range|
-
       trips = Trip.select("date(start_date), count(start_date)")
-                  .joins(:condition)
-                  .where("conditions.precipitation_inches" => range)
-                  .group("date(start_date)")
+                   .joins(:condition)
+                   .where("conditions.mean_visibility" => range)
+                   .group("date(start_date)")
       if trips.present?
         max_trip = trips.max_by { |trip| trip.attributes["count"] }
         {
@@ -49,7 +48,174 @@ class Condition < ActiveRecord::Base
         nil
       end
     end.compact
-    counts.map { |count| "Precipitation: #{count[:range]} had #{count[:count]} rides"}
+    counts.map { |count| "Visibility: #{count[:range]} miles had #{count[:count]} trips"}
+  end
+
+  def self.visibility_lowest_rides
+    ranges = [(0...4), (4...8), (8...12), (12...16), (16...20), (20...24), (24...28), (28...32)]
+    counts = ranges.map do |range|
+    trips = Trip.select("date(start_date), count(start_date)")
+                 .joins(:condition)
+                 .where("conditions.mean_visibility" => range)
+                 .group("date(start_date)")
+      if trips.present?
+        min_trip = trips.min_by { |trip| trip.attributes["count"] }
+        {
+          range: range,
+          count: min_trip.attributes["count"],
+          date: min_trip.attributes["date"]
+        }
+      else
+        nil
+      end
+    end.compact
+    counts.map { |count| "Visibility: #{count[:range]} miles had #{count[:count]} trips"}
+  end
+
+  def self.visibility_average_rides
+    ranges = [(0...4), (4...8), (8...12), (12...16), (16...20), (20...24), (24...28), (28...32)]
+    counts = ranges.map do |range|
+      trips = Trip.select("date(start_date), count(start_date)")
+                   .joins(:condition)
+                   .where("conditions.mean_visibility" => range)
+                   .group("date(start_date)")
+      if trips.present?
+        total = 0
+        dates = trips.to_a.count
+        trips.each { |trip| total += trip.attributes["count"] }
+        { range: range, average: (total.to_f / dates.to_f).round(1) }
+      else
+        nil
+      end
+    end.compact
+    counts.map { |count| "Visibility: #{count[:range]} miles had an average of #{count[:average].to_i} trips"}
+  end
+
+  def self.wind_maximum_rides
+    ranges = [(0...4), (4...8), (8...12), (12...16), (16...20),
+      (20...24), (24...28), (28...32)]
+      counts = ranges.map do |range|
+        trips = Trip.select("date(start_date), count(start_date)")
+                     .joins(:condition)
+                     .where("conditions.mean_wind_speed" => range)
+                     .group("date(start_date)")
+        if trips.present?
+          max_trip = trips.max_by { |trip| trip.attributes["count"] }
+          {
+            range: range,
+            count: max_trip.attributes["count"],
+            date: max_trip.attributes["date"]
+          }
+        else
+          nil
+        end
+      end.compact
+      counts.map { |count| "Wind Speed: #{count[:range]} miles per hour had a maximum of #{count[:count]} trips"}
+  end
+
+  def self.wind_minimum_rides
+    ranges = [(0...4), (4...8), (8...12), (12...16), (16...20),
+      (20...24), (24...28), (28...32)]
+      counts = ranges.map do |range|
+        trips = Trip.select("date(start_date), count(start_date)")
+                     .joins(:condition)
+                     .where("conditions.mean_wind_speed" => range)
+                     .group("date(start_date)")
+        if trips.present?
+          min_trip = trips.min_by { |trip| trip.attributes["count"] }
+          {
+            range: range,
+            count: min_trip.attributes["count"],
+            date: min_trip.attributes["date"]
+          }
+        else
+          nil
+        end
+      end.compact
+      counts.map { |count| "Wind Speed: #{count[:range]} miles per hour had a minimum of #{count[:count]} trips"}
+  end
+
+  def self.wind_average_rides
+    ranges = [(0...4), (4...8), (8...12), (12...16), (16...20),
+      (20...24), (24...28), (28...32)]
+    counts = ranges.map do |range|
+      trips = Trip.select("date(start_date), count(start_date)")
+                   .joins(:condition)
+                   .where("conditions.mean_wind_speed" => range)
+                   .group("date(start_date)")
+      if trips.present?
+        total = 0
+        dates = trips.to_a.count
+        trips.each { |trip| total += trip.attributes["count"] }
+        { range: range, average: (total.to_f / dates.to_f).round(1) }
+      else
+        nil
+      end
+    end.compact
+    counts.map { |count| "Wind Speed: #{count[:range]} miles per hour had an average of #{count[:average].to_i} trips"}
+  end
+
+  def self.temp_lowest_rides
+    ranges = [(20...30), (30...40), (40...50), (50...60), (60...70), (70...80), (80...90), (90...100)]
+    counts = ranges.map do |range|
+      trips = Trip.select("date(start_date), count(start_date)")
+                  .joins(:condition)
+                  .where("conditions.max_temperature_f" => range)
+                  .group("date(start_date)")
+      if trips.present?
+        min_trip = trips.min_by { |trip| trip.attributes["count"] }
+        {
+          range: range,
+          count: min_trip.attributes["count"],
+          date: min_trip.attributes["date"]
+        }
+      else
+        nil
+      end
+    end.compact
+    counts.map { |count| "Temp: #{count[:range]} had #{count[:count]} rides"}
+  end
+
+  def self.temp_average_rides
+    ranges = [(20...30), (30...40), (40...50), (50...60), (60...70), (70...80), (80...90), (90...100)]
+    counts = ranges.map do |range|
+      trips = Trip.select("date(start_date), count(start_date)")
+                  .joins(:condition)
+                  .where("conditions.max_temperature_f" => range)
+                  .group("date(start_date)")
+      if trips.present?
+        total_trips = trips.reduce(0) { |total, trip| total += trip.attributes["count"] }
+        {
+          range: range,
+          average: (total_trips.to_f/trips.to_a.count)
+        }
+      else
+        nil
+      end
+    end.compact
+    counts.map { |count| "Temp: #{count[:range]} averaged #{count[:average]} rides"}
+  end
+
+  def self.precipitation_highest_rides
+  ranges = [(0.0...0.5), (0.5...1.0), (1.0...1.5), (1.5...2.0), (2.0...2.5), (2.5...3.0), (3.0...3.5), (3.5...4.0)]
+  counts = ranges.map do |range|
+
+    trips = Trip.select("date(start_date), count(start_date)")
+                .joins(:condition)
+                .where("conditions.precipitation_inches" => range)
+                .group("date(start_date)")
+    if trips.present?
+      max_trip = trips.max_by { |trip| trip.attributes["count"] }
+      {
+        range: range,
+        count: max_trip.attributes["count"],
+        date: max_trip.attributes["date"]
+      }
+    else
+      nil
+    end
+  end.compact
+  counts.map { |count| "Precipitation: #{count[:range]} had #{count[:count]} rides"}
   end
   def self.precipitation_lowest_rides
     ranges = [(0.0...0.5), (0.5...1.0), (1.0...1.5), (1.5...2.0), (2.0...2.5), (2.5...3.0), (3.0...3.5), (3.5...4.0)]
@@ -72,29 +238,25 @@ class Condition < ActiveRecord::Base
     end.compact
     counts.map { |count| "Precipitation: #{count[:range]} had #{count[:count]} rides"}
   end
+
   def self.precipitation_average_rides
     ranges = [(0.0...0.5), (0.5...1.0), (1.0...1.5), (1.5...2.0), (2.0...2.5), (2.5...3.0), (3.0...3.5), (3.5...4.0)]
     counts = ranges.map do |range|
-      require 'pry'; binding.pry;
 
       trips = Trip.select("date(start_date), count(start_date)")
                   .joins(:condition)
                   .where("conditions.precipitation_inches" => range)
                   .group("date(start_date)")
-
-      trips.reduce(0)
-    end.compact
-    counts.map { |count| "Precipitation: #{count[:range]} had #{count[:count]} rides"}
+        if trips.present?
+          total_trips = trips.reduce(0) { |total, trip| total += trip.attributes["count"] }
+          {
+            range: range,
+            average: (total_trips.to_f/trips.to_a.count)
+          }
+        else
+          nil
+        end
+      end.compact
+      counts.map { |count| "Precipitation: #{count[:range]} Averaged: #{count[:average]} rides"}
   end
 end
-
-# if trips.present?
-#   min_trip = trips.min_by { |trip| trip.attributes["count"] }
-#   {
-#     range: range,
-#     count: min_trip.attributes["count"],
-#     date: min_trip.attributes["date"]
-#   }
-# else
-#   nil
-# end
