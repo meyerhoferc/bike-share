@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div class='card'>
+        <div class='card weather'>
           <div class='card-content'>
             <section id='wind-data'>
               <h4>Analysis of Trips for Wind Speed</h4>
@@ -50,6 +50,18 @@
                 <p><%= "#{speed} "%></p>
                 <% end %>
               </section>
+              <p>Day with Most Rides: </p>
+              <% Condition.temp_highest_rides.each do |ride| %>
+                <p><%= ride %></p>
+              <% end %>
+              <p>Day with Least Rides: </p>
+              <% Condition.temp_lowest_rides.each do |ride| %>
+                <p><%= ride %></p>
+              <% end %>
+              <p>Average Rides per Day: </p>
+              <% Condition.temp_average_rides.each do |ride| %>
+                <p><%= ride %></p>
+              <% end %>
             </section>
           </div>
         </div>

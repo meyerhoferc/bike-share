@@ -61,14 +61,22 @@ class Trip < ActiveRecord::Base
     average(:duration)
   end
 
+  def self.busiest_date_time
+    group('start_date').order('count(*)').pluck(:start_date).last
+  end
+
+  def self.slowest_date_time
+    group('start_date').order('count(*)').pluck(:start_date).first
+  end
+
   def self.busiest_day
-    date_time = group('start_date').order('count(*)').pluck(:start_date).last
+    date_time = busiest_date_time
     count = Trip.where(start_date: date_time).count
     correct_rides_grammar("#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides", count)
   end
 
   def self.slowest_day
-    date_time = group('start_date').order('count(*)').pluck(:start_date).first
+    date_time = slowest_date_time
     count = Trip.where(start_date: date_time).count
     correct_rides_grammar("#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides", count)
   end
