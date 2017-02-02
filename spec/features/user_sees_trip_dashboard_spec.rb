@@ -33,7 +33,7 @@ describe "user goes to trip dashboard" do
       expect(page).to have_content('Trip Dashboard')
     end
 
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Shortest Ride (seconds): 77')
     end
   end
@@ -66,7 +66,7 @@ describe "user goes to trip dashboard" do
 
     visit '/trips-dashboard'
 
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Longest Ride (seconds): 88')
     end
   end
@@ -99,7 +99,7 @@ describe "user goes to trip dashboard" do
 
     visit '/trips-dashboard'
 
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Average Trip Time (seconds): 82.5')
     end
   end
@@ -131,7 +131,7 @@ describe "user goes to trip dashboard" do
                       zipcode_id: zipcode.id)
 
     visit '/trips-dashboard'
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Busiest Day: 1/1/2017 had 2 rides')
     end
   end
@@ -171,7 +171,7 @@ describe "user goes to trip dashboard" do
                      zipcode_id: zipcode.id)
 
     visit '/trips-dashboard'
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Slowest Day: 4/1/2017 had 1 ride')
     end
   end
@@ -212,7 +212,7 @@ describe "user goes to trip dashboard" do
 
     visit '/trips-dashboard'
 
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Most Ridden Bike: Bike 28 had 3 rides')
     end
   end
@@ -254,7 +254,7 @@ describe "user goes to trip dashboard" do
 
     visit '/trips-dashboard'
 
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Least Ridden Bike: Bike 38 had 1 ride')
     end
   end
@@ -295,7 +295,7 @@ describe "user goes to trip dashboard" do
                      bike_id: bike2.id,
                      zipcode_id: zipcode.id)
     visit '/trips-dashboard'
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Most Common Ending Station: Aquarium')
     end
   end
@@ -336,7 +336,7 @@ describe "user goes to trip dashboard" do
                      bike_id: bike2.id,
                      zipcode_id: zipcode.id)
     visit '/trips-dashboard'
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Most Common Starting Station: Golden Gate')
     end
   end
@@ -430,7 +430,7 @@ describe "user goes to trip dashboard" do
 
     visit '/trips-dashboard'
 
-    within('.card-content') do
+    within('.card-content-trips') do
       expect(page).to have_content('Least Ridden Bike: Bike 38 had 1 ride')
     end
   end
@@ -500,7 +500,7 @@ describe "user goes to trip dashboard" do
                      condition: condition_1)
     visit("/trips-dashboard")
 
-    expect(find(".card-content")).to have_content("High: 90")
+    expect(find(".card-content-trips")).to have_content("High: 90")
   end
 
   it "sees weather info for slowest day" do
@@ -568,6 +568,6 @@ describe "user goes to trip dashboard" do
                        condition: condition_1)
       visit("/trips-dashboard")
 
-      expect(find(".card-content")).to have_content("Low: 19")
+      expect(find(".card-content-trips")).to have_content("Low: 19")
   end
 end

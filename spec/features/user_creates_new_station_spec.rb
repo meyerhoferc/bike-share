@@ -1,4 +1,5 @@
 require_relative "../spec_helper"
+
 describe "when a user visits the new form page" do
   it "sees the form to create a new station" do
     visit "/stations/new"

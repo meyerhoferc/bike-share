@@ -14,7 +14,9 @@ class Bike < ActiveRecord::Base
       .joins(:trips).group("bikes.bike_number")
       .order("number_of_trips desc")
       .limit(1).first
-    correct_rides_grammar("Bike #{bike.bike_number} had #{bike.number_of_trips} rides", bike.number_of_trips)
+    if bike
+      correct_rides_grammar("Bike #{bike.bike_number} had #{bike.number_of_trips} rides", bike.number_of_trips)
+    end
   end
 
    def self.least_ridden
@@ -22,6 +24,8 @@ class Bike < ActiveRecord::Base
       .joins(:trips).group("bikes.bike_number")
       .order("number_of_trips asc")
       .limit(1).first
-    correct_rides_grammar("Bike #{bike.bike_number} had #{bike.number_of_trips} rides", bike.number_of_trips)
-   end
+    if bike
+      correct_rides_grammar("Bike #{bike.bike_number} had #{bike.number_of_trips} rides", bike.number_of_trips)
+    end
+  end
 end

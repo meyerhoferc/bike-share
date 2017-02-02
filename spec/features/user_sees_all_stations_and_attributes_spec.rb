@@ -26,5 +26,4 @@ describe "When user visits stations/index" do
 
     expect(page).to have_current_path('/stations/1/edit')
   end
-
 end
