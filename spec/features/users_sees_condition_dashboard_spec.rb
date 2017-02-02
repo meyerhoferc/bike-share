@@ -259,7 +259,6 @@ describe 'user goes to conditions dashboard' do
                    condition_id: condition_2.id)
 
       visit('/weather-dashboard')
-      # save_and_open_page
 
       within('.average-visibility-data') do
         expect(page).to have_content("Visibility: 0...4 miles had an average of 1 trips")
