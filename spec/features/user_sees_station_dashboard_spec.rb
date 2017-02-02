@@ -8,7 +8,7 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: Faker::Cat.name, dock_count: 11, installation_date: '01/01/2017')
 
     visit '/station-dashboard'
-    within("#station-dashboard") do
+    within("#station-dashboard-info") do
       expect(page).to have_content("Total Stations")
       expect(page).to have_content(2)
       expect(Station.count).to eq(2)
@@ -23,7 +23,7 @@ describe "user goes to station dashboard" do
 
     visit '/station-dashboard'
 
-    within("#station-dashboard") do
+    within("#station-dashboard-bikes") do
       expect(page).to have_content('10.5')
     end
   end
@@ -36,7 +36,7 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: "Fargo", dock_count: 10, installation_date: '01/02/2017')
 
     visit '/station-dashboard'
-    within("#station-dashboard") do
+    within("#station-dashboard-bikes") do
       expect(page).to have_content("10")
       expect(page).to have_content("Fewest Bikes")
       expect(page).to have_content("Station with Fewest Bikes: Tallahassee")
@@ -50,7 +50,7 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: "Austin", dock_count: 11, installation_date: '01/01/2017')
 
     visit '/station-dashboard'
-    within("#station-dashboard") do
+    within("#station-dashboard-bikes") do
       expect(page).to have_content("11")
       expect(page).to have_content("Most Bikes")
       expect(page).to have_content("Station with Most Bikes: Austin")
@@ -64,7 +64,7 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: "Tucson", dock_count: 11, installation_date: '01/04/2017')
 
     visit '/station-dashboard'
-    within("#station-dashboard") do
+    within("#station-dashboard-info") do
       expect(page).to have_content("Newest Station")
       expect(page).to have_content("Tucson: 4/1/2017")
     end
@@ -77,7 +77,7 @@ describe "user goes to station dashboard" do
     city2.stations.create(name: "Tucson", dock_count: 11, installation_date: '01/04/2017')
 
     visit '/station-dashboard'
-    within("#station-dashboard") do
+    within("#station-dashboard-info") do
       expect(page).to have_content("Oldest Station")
       expect(page).to have_content("Portland: 1/1/2017")
     end
