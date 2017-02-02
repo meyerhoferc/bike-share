@@ -10,7 +10,6 @@ class Bike < ActiveRecord::Base
   end
 
   def self.most_ridden
-    # require 'pry'; binding.pry
     bike = select("bikes.bike_number, count(trips.bike_id) as number_of_trips")
       .joins(:trips).group("bikes.bike_number")
       .order("number_of_trips desc")
