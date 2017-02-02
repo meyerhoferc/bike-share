@@ -75,6 +75,11 @@ class Trip < ActiveRecord::Base
     correct_rides_grammar("#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides", count)
   end
 
+  def self.weather_for_busiest_day
+    date = busiest_date_time.to_date
+    Condition.where("date(date) = ?", date).first
+  end
+
   def self.slowest_day
     date_time = slowest_date_time
     count = Trip.where(start_date: date_time).count

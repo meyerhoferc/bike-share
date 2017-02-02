@@ -81,6 +81,7 @@ class BikeShareApp < Sinatra::Base
  end
 
  get '/trips-dashboard' do
+   @condition = Trip.weather_for_busiest_day
    erb :"trip/dashboard"
  end
 

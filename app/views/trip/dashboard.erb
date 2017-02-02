@@ -13,6 +13,16 @@
               <p>Longest Ride (seconds): <%= Trip.longest_ride %></p>
               <p>Average Trip Time (seconds): <%= Trip.average_duration %></p>
               <p>Busiest Day: <%= Trip.busiest_day %></p>
+              <% if @condition %>
+              <p>Weather for Busiest Day: </p>
+                <p>High: <%= @condition.max_temperature_f %> </p>
+                <p>Low: <%= @condition.min_temperature_f %> </p>
+                <p>Average: <%= @condition.mean_temperature_f %></p>
+                <p>Mean Humidity: <%= @condition.mean_humidity %></p>
+                <p>Mean Visibility: <%= @condition.mean_visibility %></p>
+                <p>Wind Speed : <%= @condition.mean_wind_speed %></p>
+                <p>Precipitation <%= @condition.precipitation_inches %></p>
+                <% end %>
               <p>Slowest Day: <%= Trip.slowest_day %></p>
               <p>Most Ridden Bike: <%= Bike.most_ridden %></p>
               <p>Least Ridden Bike: <%= Bike.least_ridden %></p>
