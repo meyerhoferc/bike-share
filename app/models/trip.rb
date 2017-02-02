@@ -78,8 +78,8 @@ class Trip < ActiveRecord::Base
   end
 
   def self.weather_for_busiest_day
-    date = busiest_date_time.to_date
-    Condition.where("date(date) = ?", date).limit(1).first
+      date = busiest_date_time.to_date if busiest_date_time
+      Condition.where("date(date) = ?", date).limit(1).first
   end
 
   def self.slowest_day
@@ -91,7 +91,7 @@ class Trip < ActiveRecord::Base
   end
 
   def self.weather_for_slowest_day
-    date = slowest_date_time.to_date
+    date = slowest_date_time.to_date if slowest_date_time
     Condition.where("date(date) = ?", date).limit(1).first
   end
 
