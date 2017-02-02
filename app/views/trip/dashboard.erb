@@ -13,17 +13,27 @@
               <p>Longest Ride (seconds): <%= Trip.longest_ride %></p>
               <p>Average Trip Time (seconds): <%= Trip.average_duration %></p>
               <p>Busiest Day: <%= Trip.busiest_day %></p>
-              <% if @condition %>
+              <% if @busiest_condition %>
               <p>Weather for Busiest Day: </p>
-                <p>High: <%= @condition.max_temperature_f %> </p>
-                <p>Low: <%= @condition.min_temperature_f %> </p>
-                <p>Average: <%= @condition.mean_temperature_f %></p>
-                <p>Mean Humidity: <%= @condition.mean_humidity %></p>
-                <p>Mean Visibility: <%= @condition.mean_visibility %></p>
-                <p>Wind Speed : <%= @condition.mean_wind_speed %></p>
-                <p>Precipitation <%= @condition.precipitation_inches %></p>
+                <p>High: <%= @busiest_condition.max_temperature_f %> </p>
+                <p>Low: <%= @busiest_condition.min_temperature_f %> </p>
+                <p>Average: <%= @busiest_condition.mean_temperature_f %></p>
+                <p>Mean Humidity: <%= @busiest_condition.mean_humidity %></p>
+                <p>Mean Visibility: <%= @busiest_condition.mean_visibility %></p>
+                <p>Wind Speed : <%= @busiest_condition.mean_wind_speed %></p>
+                <p>Precipitation <%= @busiest_condition.precipitation_inches %></p>
                 <% end %>
               <p>Slowest Day: <%= Trip.slowest_day %></p>
+              <% if @slowest_condition %>
+              <p>Weather for Busiest Day: </p>
+                <p>High: <%= @slowest_condition.max_temperature_f %> </p>
+                <p>Low: <%= @slowest_condition.min_temperature_f %> </p>
+                <p>Average: <%= @slowest_condition.mean_temperature_f %></p>
+                <p>Mean Humidity: <%= @slowest_condition.mean_humidity %></p>
+                <p>Mean Visibility: <%= @slowest_condition.mean_visibility %></p>
+                <p>Wind Speed : <%= @slowest_condition.mean_wind_speed %></p>
+                <p>Precipitation <%= @slowest_condition.precipitation_inches %></p>
+                <% end %>
               <p>Most Ridden Bike: <%= Bike.most_ridden %></p>
               <p>Least Ridden Bike: <%= Bike.least_ridden %></p>
               <p>Most Common Starting Station: <%= Trip.most_common_starting_station %></p>

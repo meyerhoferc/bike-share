@@ -498,5 +498,62 @@ describe Trip do
 
       expect(Trip.weather_for_busiest_day).to eq(condition_1)
     end
+    it 'returns the weather data' do
+      subscription = Subscription.create(account: "subscriber")
+      subscription2 = Subscription.create(account: "customer")
+      city = City.create(name: "San Jose")
+      station_1 = city.stations.create(name: "Golden Gate", dock_count: 22,
+        installation_date: '01/01/2017')
+      station_2 = city.stations.create(name: "Aquarium", dock_count: 28,
+        installation_date: '01/03/2017')
+      bike = Bike.create(bike_number: 28)
+      bike2 = Bike.create(bike_number: 38)
+      zipcode = Zipcode.create(zip_code: 85701)
+      condition_1 = Condition.create(date: "01/01/2017",
+                      max_temperature_f: "80",
+                      mean_temperature_f: "75",
+                      min_temperature_f: "19",
+                      mean_humidity: "0.50",
+                      mean_visibility: "1",
+                      mean_wind_speed: "10",
+                      precipitation_inches: "4")
+      condition_2 = Condition.create(date: "01/04/2017",
+                      max_temperature_f: "90",
+                      mean_temperature_f: "75",
+                      min_temperature_f: "19",
+                      mean_humidity: "0.50",
+                      mean_visibility: "1",
+                      mean_wind_speed: "10",
+                      precipitation_inches: "4")
+      Trip.create!(duration: 88,
+                         start_station_id: station_2.id,
+                         start_date: '01/01/2017 14:14',
+                         end_date: '01/01/2017 15:30',
+                         end_station_id: station_1.id,
+                         subscription_id: subscription.id,
+                         bike_id: bike.id,
+                         zipcode_id: zipcode.id,
+                         condition: condition_1)
+      Trip.create!(duration: 77,
+                        start_station_id: station_1.id,
+                        start_date: '01/01/2017 14:14',
+                        end_date: '01/03/2017 15:30',
+                        end_station_id: station_2.id,
+                        subscription_id: subscription.id,
+                        bike_id: bike2.id,
+                        zipcode_id: zipcode.id,
+                        condition: condition_1)
+     Trip.create!(duration: 77,
+                       start_station_id: station_1.id,
+                       start_date: '01/04/2017 14:14',
+                       end_date: '01/03/2017 15:30',
+                       end_station_id: station_2.id,
+                       subscription_id: subscription2.id,
+                       bike_id: bike2.id,
+                       zipcode_id: zipcode.id,
+                       condition: condition_2)
+
+      expect(Trip.weather_for_slowest_day).to eq(condition_2)
+    end
   end
 end

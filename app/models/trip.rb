@@ -62,11 +62,11 @@ class Trip < ActiveRecord::Base
   end
 
   def self.busiest_date_time
-    group('start_date').order('count(*)').pluck(:start_date).last
+    group('start_date').order('count(*) desc').limit(1).pluck(:start_date).first
   end
 
   def self.slowest_date_time
-    group('start_date').order('count(*)').pluck(:start_date).first
+    group('start_date').order('count(*) asc').limit(1).pluck(:start_date).first
   end
 
   def self.busiest_day
@@ -77,13 +77,18 @@ class Trip < ActiveRecord::Base
 
   def self.weather_for_busiest_day
     date = busiest_date_time.to_date
-    Condition.where("date(date) = ?", date).first
+    Condition.where("date(date) = ?", date).limit(1).first
   end
 
   def self.slowest_day
     date_time = slowest_date_time
     count = Trip.where(start_date: date_time).count
     correct_rides_grammar("#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides", count)
+  end
+
+  def self.weather_for_slowest_day
+    date = slowest_date_time.to_date
+    Condition.where("date(date) = ?", date).limit(1).first
   end
 
   def self.most_common_ending_station
