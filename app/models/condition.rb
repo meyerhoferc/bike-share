@@ -49,6 +49,28 @@ class Condition < ActiveRecord::Base
       end
     end.compact
     phrase = counts.map { |count| "Visibility: #{count[:range]} miles had #{count[:count]} trips"}
-    # require 'pry'; binding.pry
+  end
+
+  def self.visibility_lowest_rides
+    ranges = [(0...4), (4...8), (8...12), (12...16), (16...20), (20...24), (24...28), (28...32)]
+    counts = ranges.map do |range|
+      trips = Trip.select("date(start_date), count(start_date)")
+                   .joins(:condition)
+                   .where("conditions.mean_visibility" => range)
+                   .group("date(start_date)")
+      if trips.present?
+        min_trip = trips.min_by { |trip| trip.attributes["count"] }
+        {
+          range: range,
+          count: min_trip.attributes["count"],
+          date: min_trip.attributes["date"]
+        }
+      else
+        nil
+      end
+    end.compact
+    phrase = counts.map { |count| "Visibility: #{count[:range]} miles had #{count[:count]} trips"}
   end
 end
+
+# require 'pry'; binding.pry

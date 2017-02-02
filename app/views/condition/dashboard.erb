@@ -11,6 +11,12 @@
                 <p><%= "#{visibility} "%></p>
                 <% end %>
               </section>
+              <section class='minimum-visibility-data'>
+                <h4>Minimum Number of Trips on a Day</h4>
+                <% @min_visibilities.each do |visibility| %>
+                <p><%= "#{visibility} "%></p>
+                <% end %>
+              </section>
             </section>
           </div>
         </div>

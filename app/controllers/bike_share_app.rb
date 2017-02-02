@@ -165,6 +165,8 @@ class BikeShareApp < Sinatra::Base
 
   get '/weather-dashboard' do
     @max_visibilities = Condition.visibility_highest_rides
+    @min_visibilities = Condition.visibility_lowest_rides
+    
     erb :"condition/dashboard"
   end
 
