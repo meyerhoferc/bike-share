@@ -8,7 +8,7 @@ class Station < ActiveRecord::Base
   has_many :ending_trips, inverse_of: :end_station, class_name: "Trip", foreign_key: :end_station_id
 
   def self.average_bikes
-    average(:dock_count).round(1)
+    average(:dock_count).round(1) if average(:dock_count).present?
   end
 
   def self.fewest_bikes
@@ -16,9 +16,11 @@ class Station < ActiveRecord::Base
   end
 
   def self.name_fewest_bikes
-    self.where(dock_count: minimum(:dock_count)).map do |station|
-      station.name
-    end.join
+    if count
+      where(dock_count: minimum(:dock_count)).map do |station|
+        station.name
+      end.join
+    end
   end
 
   def self.most_bikes
@@ -26,21 +28,25 @@ class Station < ActiveRecord::Base
   end
 
   def self.name_most_bikes
-    self.where(dock_count: maximum(:dock_count)).map do |station|
+    where(dock_count: maximum(:dock_count)).map do |station|
       station.name
     end.join
   end
 
   def self.newest_station
     max_date = maximum(:installation_date)
-    station_name = self.find_by(installation_date: maximum(:installation_date)).name
-    "#{station_name}: #{max_date.month}/#{max_date.day}/#{max_date.year}"
+    if max_date
+      station_name = find_by(installation_date: maximum(:installation_date)).name
+      "#{station_name}: #{max_date.month}/#{max_date.day}/#{max_date.year}"
+    end
   end
 
   def self.oldest_station
     min_date = minimum(:installation_date)
-    station_name = self.find_by(installation_date: minimum(:installation_date)).name
-    "#{station_name}: #{min_date.month}/#{min_date.day}/#{min_date.year}"
+    if min_date
+      station_name = find_by(installation_date: minimum(:installation_date)).name
+      "#{station_name}: #{min_date.month}/#{min_date.day}/#{min_date.year}"
+    end
   end
 
   def day_with_most_starts

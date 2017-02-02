@@ -64,27 +64,35 @@ class Trip < ActiveRecord::Base
   def self.busiest_day
     date_time = group('start_date').order('count(*)').pluck(:start_date).last
     count = Trip.where(start_date: date_time).count
-    correct_rides_grammar("#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides", count)
+    if count && date_time
+      correct_rides_grammar("#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides", count)
+    end
   end
 
   def self.slowest_day
     date_time = group('start_date').order('count(*)').pluck(:start_date).first
     count = Trip.where(start_date: date_time).count
-    correct_rides_grammar("#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides", count)
+    if date_time
+      correct_rides_grammar("#{date_time.month}/#{date_time.day}/#{date_time.year} had #{count} rides", count)
+    end
   end
 
   def self.most_common_ending_station
     station_id = select("trips.end_station_id, count(trips.end_station_id) as frequency")
-    .group("trips.end_station_id").order("frequency desc")
-    .limit(1).first
-    Station.find(station_id.end_station_id).name
+                 .group("trips.end_station_id").order("frequency desc")
+                 .limit(1).first
+    if station_id
+      Station.find(station_id.end_station_id).name
+    end
   end
 
   def self.most_common_starting_station
     station_id = select("trips.start_station_id, count(trips.start_station_id) as frequency")
-    .group("trips.start_station_id").order("frequency desc")
-    .limit(1).first
-    Station.find(station_id.start_station_id).name
+                .group("trips.start_station_id").order("frequency desc")
+                .limit(1).first
+    if station_id
+      Station.find(station_id.start_station_id).name
+    end
   end
 
   def self.determine_number_of_trips_for_month(month, year)
