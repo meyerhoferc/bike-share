@@ -43,6 +43,12 @@ class Station < ActiveRecord::Base
     "#{station_name}: #{min_date.month}/#{min_date.day}/#{min_date.year}"
   end
 
+  def day_with_most_starts
+    date = beginning_trips.group(:start_date).order('count(*)').pluck(:start_date).last
+    count = beginning_trips.group(:start_date).order('count(*)').pluck(:start_date).count
+    "#{format_date(date)} had #{count} starts" if date
+  end
+
   def most_frequent_destination
     beginning_trips.most_frequent_destination
   end
@@ -60,6 +66,12 @@ class Station < ActiveRecord::Base
 
   def rides_ended
     ending_trips.count
+  end
+
+
+  def format_date(date)
+    x = date.to_s.split("-")
+    "#{x[1]}/#{x[2][0..1]}/#{x[0]}"
   end
 
   def rides_started

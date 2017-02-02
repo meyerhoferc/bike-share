@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 require 'faker'
 
 describe Station do
-  describe "validations" do
+  describe "station validations" do
     it "invalid without a name" do
       station = Station.create(dock_count: 22, city_id: 3, installation_date: "01/01/2017")
 
@@ -27,7 +27,7 @@ describe Station do
       expect(station).to_not be_valid
     end
   end
-  describe "dashboard" do
+  describe "station dashboard" do
     it "returns average bikes per stations" do
       city1 = City.create!(name: 'Denver')
       city1.stations.create(name: Faker::Cat.name, dock_count: 10, installation_date: '01/01/2017')
@@ -320,6 +320,45 @@ describe Station do
 
       expect(station_1.most_frequent_bike).to eq(28)
       expect(station_2.most_frequent_bike).to eq(58)
+    end
+  end
+
+  describe "returns day and count for busiest day" do
+    it "finds the day with the most starts from station" do
+      subscription = Subscription.create(account: "subscriber")
+      city = City.create!(name: "Bend")
+      station_1 = city.stations.create(name: "Mountain", dock_count: 22,
+        installation_date: '01/01/2017')
+      station_2 = city.stations.create(name: "Qwidich", dock_count: 28,
+        installation_date: '01/03/2017')
+      bike = Bike.create!(bike_number: 145)
+      zipcode = Zipcode.create(zip_code: 85701)
+      trip = Trip.create!(duration: 88,
+                         start_station_id: station_1.id,
+                         start_date: '01/01/2017 14:14',
+                         end_date: '01/01/2017 15:30',
+                         end_station_id: station_2.id,
+                         subscription_id: subscription.id,
+                         bike_id: bike.id,
+                         zipcode_id: zipcode.id)
+      trip1 = Trip.create!(duration: 77,
+                        start_station_id: station_1.id,
+                        start_date: '01/01/2017 14:14',
+                        end_date: '01/03/2017 15:30',
+                        end_station_id: station_2.id,
+                        subscription_id: subscription.id,
+                        bike_id: bike.id,
+                        zipcode_id: zipcode.id)
+      trip1 = Trip.create!(duration: 77,
+                       start_station_id: station_1.id,
+                       start_date: '01/04/2017 14:14',
+                       end_date: '01/03/2017 15:30',
+                       end_station_id: station_2.id,
+                       subscription_id: subscription.id,
+                       bike_id: bike.id,
+                       zipcode_id: zipcode.id)
+
+      expect(station_1.day_with_most_starts).to eq('01/01/2017 had 2 starts')
     end
   end
 end
