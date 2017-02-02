@@ -163,6 +163,10 @@ class BikeShareApp < Sinatra::Base
     erb :"condition/new"
   end
 
+  get '/weather-dashboard' do
+    erb :"condition/dashboard"
+  end
+
   get '/conditions/:id' do
     @condition = Condition.find(params[:id])
     erb :'condition/show'
