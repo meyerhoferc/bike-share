@@ -35,7 +35,6 @@ describe "user can edit from index" do
       expect(page).to have_content(zipcode_1.zip_code)
       expect(page).to have_content(subscription_2.account)
     end
-
   end
 end
 

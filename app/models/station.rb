@@ -74,7 +74,6 @@ class Station < ActiveRecord::Base
     ending_trips.count
   end
 
-
   def format_date(date)
     x = date.to_s.split("-")
     "#{x[1]}/#{x[2][0..1]}/#{x[0]}"
