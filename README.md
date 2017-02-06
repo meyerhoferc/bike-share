@@ -18,7 +18,7 @@ This application collects data in two ways: 1) through web forms allowing users 
 
 ### ActiveRecord
 
-We used ActiveRecord migrations, queries, and methods to create and interact with our database. ActiveRecord migrations created a normalized database, and all tables in the database were structured as 2NF or 3NF. ActiveRecord queries and relationships were implemented to calculate and report on information in the database.
+We used ActiveRecord migrations, queries, and methods to create and interact with our Postgresql database. ActiveRecord migrations created a normalized database, and all tables in the database were structured as 2NF or 3NF. ActiveRecord queries and relationships were implemented to calculate and report on information in the database.
 
 ### User Experience and Conventions
 
@@ -27,3 +27,7 @@ We used Sinatra and ERB templates to render views to create, read, update, and d
 ### Testing
 
 We used RSpec and Capybara to drive development at the feature and model levels.
+
+### Project Management and Organization
+
+We used Waffle.io and user stories to communicate our progress and provide feedback to each other on the spec. 
