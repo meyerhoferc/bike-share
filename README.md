@@ -2,7 +2,7 @@
 
 ## Abstract
 
-In this project we used Ruby, Sinatra, and ActiveRecord to build a web application that analyzes bike share usage in San Francisco. The project structured is centered on the Model, View, Controller (MVC) concept.
+In this project we used Ruby, Sinatra, and ActiveRecord to build a web application that analyzes bike share usage in San Francisco using this [data](https://www.kaggle.com/benhamner/sf-bay-area-bike-share). The project structured is centered on the Model, View, Controller (MVC) concept.
 
 This application collects data in two ways: 1) through web forms allowing users to enter trip/station/weather information, and 2) by consuming CSV files with historical information for stations, trips, and weather. In addition to creating and storing this information for viewing at a later date, this application provides a number of user dashboards with higher level analysis of trends in bike share usage.
 
